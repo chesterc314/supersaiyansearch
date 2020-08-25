@@ -1,0 +1,12 @@
+E:\Development\super-saiyan-search\Integration\bin\Debug\netstandard2.0\Integration.deps.json
+E:\Development\super-saiyan-search\Integration\bin\Debug\netstandard2.0\Integration.dll
+E:\Development\super-saiyan-search\Integration\bin\Debug\netstandard2.0\Integration.pdb
+E:\Development\super-saiyan-search\Integration\obj\Debug\netstandard2.0\Integration.csprojAssemblyReference.cache
+E:\Development\super-saiyan-search\Integration\obj\Debug\netstandard2.0\Integration.AssemblyInfoInputs.cache
+E:\Development\super-saiyan-search\Integration\obj\Debug\netstandard2.0\Integration.AssemblyInfo.cs
+E:\Development\super-saiyan-search\Integration\obj\Debug\netstandard2.0\Integration.csproj.CoreCompileInputs.cache
+E:\Development\super-saiyan-search\Integration\obj\Debug\netstandard2.0\Integration.dll
+E:\Development\super-saiyan-search\Integration\obj\Debug\netstandard2.0\Integration.pdb
+E:\Development\super-saiyan-search\Integration\bin\Debug\netstandard2.0\Domain.dll
+E:\Development\super-saiyan-search\Integration\bin\Debug\netstandard2.0\Domain.pdb
+E:\Development\super-saiyan-search\Integration\obj\Debug\netstandard2.0\Integration.csproj.CopyComplete

@@ -1,0 +1,16 @@
+E:\Development\super-saiyan-search\Api\bin\Debug\netstandard2.0\Api.deps.json
+E:\Development\super-saiyan-search\Api\bin\Debug\netstandard2.0\Api.dll
+E:\Development\super-saiyan-search\Api\bin\Debug\netstandard2.0\Api.pdb
+E:\Development\super-saiyan-search\Api\obj\Debug\netstandard2.0\Api.csprojAssemblyReference.cache
+E:\Development\super-saiyan-search\Api\obj\Debug\netstandard2.0\Api.AssemblyInfoInputs.cache
+E:\Development\super-saiyan-search\Api\obj\Debug\netstandard2.0\Api.AssemblyInfo.cs
+E:\Development\super-saiyan-search\Api\obj\Debug\netstandard2.0\Api.csproj.CoreCompileInputs.cache
+E:\Development\super-saiyan-search\Api\obj\Debug\netstandard2.0\Api.dll
+E:\Development\super-saiyan-search\Api\obj\Debug\netstandard2.0\Api.pdb
+E:\Development\super-saiyan-search\Api\bin\Debug\netstandard2.0\DataAccess.dll
+E:\Development\super-saiyan-search\Api\bin\Debug\netstandard2.0\Domain.dll
+E:\Development\super-saiyan-search\Api\bin\Debug\netstandard2.0\Integration.dll
+E:\Development\super-saiyan-search\Api\bin\Debug\netstandard2.0\Domain.pdb
+E:\Development\super-saiyan-search\Api\bin\Debug\netstandard2.0\DataAccess.pdb
+E:\Development\super-saiyan-search\Api\bin\Debug\netstandard2.0\Integration.pdb
+E:\Development\super-saiyan-search\Api\obj\Debug\netstandard2.0\Api.csproj.CopyComplete

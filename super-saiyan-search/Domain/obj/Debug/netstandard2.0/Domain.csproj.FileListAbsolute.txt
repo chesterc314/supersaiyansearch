@@ -1,0 +1,9 @@
+E:\Development\super-saiyan-search\Domain\bin\Debug\netstandard2.0\Domain.deps.json
+E:\Development\super-saiyan-search\Domain\bin\Debug\netstandard2.0\Domain.dll
+E:\Development\super-saiyan-search\Domain\bin\Debug\netstandard2.0\Domain.pdb
+E:\Development\super-saiyan-search\Domain\obj\Debug\netstandard2.0\Domain.csprojAssemblyReference.cache
+E:\Development\super-saiyan-search\Domain\obj\Debug\netstandard2.0\Domain.AssemblyInfoInputs.cache
+E:\Development\super-saiyan-search\Domain\obj\Debug\netstandard2.0\Domain.AssemblyInfo.cs
+E:\Development\super-saiyan-search\Domain\obj\Debug\netstandard2.0\Domain.csproj.CoreCompileInputs.cache
+E:\Development\super-saiyan-search\Domain\obj\Debug\netstandard2.0\Domain.dll
+E:\Development\super-saiyan-search\Domain\obj\Debug\netstandard2.0\Domain.pdb
