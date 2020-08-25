@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using SuperSaiyanSearch.Domain.Interfaces;
 
-namespace SuperSaiyanSearch.Integration
+namespace SuperSaiyanSearch.Integration.Interfaces
 {
     public interface IStoreSiteAggregation
     {

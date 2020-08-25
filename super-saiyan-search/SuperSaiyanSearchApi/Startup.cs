@@ -1,17 +1,15 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using AutoMapper;
 using SuperSaiyanSearch.DataAccess;
+using SuperSaiyanSearch.Domain;
+using SuperSaiyanSearch.Domain.Interfaces;
+using SuperSaiyanSearch.Integration.Interfaces;
+using SuperSaiyanSearch.Integration;
 using Microsoft.EntityFrameworkCore;
 
 namespace SuperSaiyanSearchApi
@@ -30,6 +28,8 @@ namespace SuperSaiyanSearchApi
         {
             services.AddDbContext<ProductContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ProductConnection"), b => b.MigrationsAssembly("DataAccess")));
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddScoped<IPageRepository<Product, Guid>, ProductRepository>();
+            services.AddScoped<IStoreSiteAggregation, StoreSiteAggregation>();
             services.AddControllers().AddNewtonsoftJson(options => options.UseMemberCasing());
         }
 

@@ -1,9 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using SuperSaiyanSearch.Domain;
 using SuperSaiyanSearch.Domain.Interfaces;
 using SuperSaiyanSearch.Integration;
+using SuperSaiyanSearch.Integration.Interfaces;
 using Xunit;
 
 namespace Integration.Tests
