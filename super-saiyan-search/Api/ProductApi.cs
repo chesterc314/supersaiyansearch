@@ -38,7 +38,7 @@ namespace SuperSaiyanSearch.Api
                 previousGuid = Guid.Parse(previous);
             }
 
-            var page = this._productRepository.GetPage(product => product.Name.Contains(keyword), nextGuid.Value, previousGuid.Value, limit);
+            var page = this._productRepository.GetPage(product => product.Name.ToLower().Contains(keyword.ToLower()), nextGuid.Value, previousGuid.Value, limit);
             var products = _mapper.Map<IEnumerable<ProductReadDto>>(page.Items);
             var productsReadDto = new ProductsReadDto(products);
             productsReadDto.Next = page.Next.ToString();
@@ -50,7 +50,7 @@ namespace SuperSaiyanSearch.Api
         }
         private bool ProductExits(string keyword)
         {
-            return this._productRepository.Count(product => product.Name.Contains(keyword)) > 0;
+            return this._productRepository.Count(product => product.Name.ToLower().Contains(keyword.ToLower())) > 0;
         }
     }
 }

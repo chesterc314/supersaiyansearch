@@ -29,7 +29,9 @@ namespace SuperSaiyanSearchApi
             services.AddDbContext<ProductContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ProductConnection"), b => b.MigrationsAssembly("DataAccess")));
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IPageRepository<Product, Guid>, ProductRepository>();
-            //services.AddScoped<IStoreSiteAggregation, StoreSiteAggregation>();
+            services.AddSingleton<IWebScrapper, WebScrapper>();
+            services.AddScoped<IStoreSiteConfiguration, StoreSiteConfiguration>();
+            services.AddScoped<IStoreSiteAggregation, StoreSiteAggregation>();
             services.AddControllers().AddNewtonsoftJson(options => options.UseMemberCasing());
         }
 

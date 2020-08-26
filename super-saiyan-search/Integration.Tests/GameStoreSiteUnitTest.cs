@@ -3,18 +3,18 @@ using Xunit;
 
 namespace SuperSaiyanSearch.Integration.Tests
 {
-    public class TakealotStoreSiteUnitTest
+    public class GameStoreSiteUnitTest
     {
-        private readonly IStoreSite _takealotStoreSite;
+        private readonly IStoreSite _gameStoreSite;
 
-        public TakealotStoreSiteUnitTest()
+        public GameStoreSiteUnitTest()
         {
-           _takealotStoreSite = new TakealotStoreSite();
+           _gameStoreSite = new GameStoreSite(new WebScrapper());
         }
         [Fact]
         public void GivenUrlWhenSearchingScrapThenReturnSiteContent()
         {
-            var results = _takealotStoreSite.Search("laptop");
+            var results = _gameStoreSite.Search("laptop");
             Assert.NotNull(results);
         }
     }
