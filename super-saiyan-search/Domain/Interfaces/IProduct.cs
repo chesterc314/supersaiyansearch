@@ -9,5 +9,6 @@ namespace SuperSaiyanSearch.Domain.Interfaces
         int Units { get; set; }
         string Source { get; set; }
         string SourceUrl { get; set; }
+        string ImageUrl { get; set; }
     }
 }

@@ -19,5 +19,7 @@ namespace SuperSaiyanSearch.Api
         public string Source { get; set; }
         [JsonProperty("sourceUrl")]
         public string SourceUrl { get; set; }
+        [JsonProperty("imageUrl")]
+        public string ImageUrl { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using SuperSaiyanSearch.Integration;
 using SuperSaiyanSearch.Integration.Interfaces;
 using Xunit;
 
-namespace Integration.Tests
+namespace SuperSaiyanSearch.Integration.Tests
 {
     public class StoreSiteAggregationUnitTest
     {

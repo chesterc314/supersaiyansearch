@@ -60,7 +60,7 @@ namespace SuperSaiyanSearch.DataAccess
             IQueryable<Product> pageQuery = _productContext.Products.Where(predicate).OrderByDescending(p => p.Id).Take(defaultLimit);
             IQueryable<Product> nextQuery = _productContext.Products.Where(p => p.Id.CompareTo(next) < 0).Where(predicate).OrderByDescending(p => p.Id).Take(defaultLimit);
             IQueryable<Product> previousQuery = _productContext.Products.Where(p => p.Id.CompareTo(next) > 0).Where(predicate).OrderByDescending(p => p.Id).Take(defaultLimit);
-            
+
             if (next != null)
             {
                 pageQuery = nextQuery;
@@ -77,6 +77,7 @@ namespace SuperSaiyanSearch.DataAccess
                 page.Next = pageQuery.Last().Id;
                 page.Previous = pageQuery.First().Id;
             }
+            
             page.Items = pageQuery.ToList();
             page.Limit = defaultLimit;
             page.TotalResults = this.Count(predicate);
