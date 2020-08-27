@@ -33,10 +33,18 @@ namespace SuperSaiyanSearch.Integration
                 var imageUrl = imageElementAttributes.AttributesWithName("data-src").First().Value;
                 var brand = name.Split(" ")[0];
                 var cultures = new CultureInfo("en-US");
-                var priceValue = element.CssSelect(".product-tile-inner > .price").First().InnerHtml.Trim().Trim('\n').Trim('R').TrimStart().Split("<span class=\"mak-product__cents\">00</span>")[0];
+                var priceValue = element.CssSelect(".product-tile-inner > .price")
+                .First()
+                .InnerHtml
+                .Trim()
+                .Trim('\n')
+                .Trim('R')
+                .TrimStart()
+                .Replace("<span class=\"mak-product__cents\">", ".").Replace("</span>", "");
                 var price = Convert.ToDecimal(priceValue, cultures);
 
-                resultProducts.Add( new Product{
+                resultProducts.Add(new Product
+                {
                     Name = name,
                     Description = name,
                     Price = price,
@@ -44,7 +52,7 @@ namespace SuperSaiyanSearch.Integration
                     Brand = brand,
                     Source = "Makro",
                     SourceUrl = sourceUrl,
-                    ImageUrl =  imageUrl
+                    ImageUrl = imageUrl
                 });
             }
 
