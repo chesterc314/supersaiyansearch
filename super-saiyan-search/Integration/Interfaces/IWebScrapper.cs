@@ -1,6 +1,6 @@
 using HtmlAgilityPack;
 
-namespace SuperSaiyanSearch.Integration
+namespace SuperSaiyanSearch.Integration.Interfaces
 {
     public interface IWebScrapper
     {

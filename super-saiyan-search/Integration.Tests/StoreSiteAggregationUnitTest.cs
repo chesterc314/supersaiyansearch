@@ -48,7 +48,7 @@ namespace SuperSaiyanSearch.Integration.Tests
         public void GivenStoreSitesWhenSearchThenReturnProducts()
         {
             var name = "vga to hdmi";
-            var products = _storeSiteAggregation.SearchAll("hdmi");
+            var products = _storeSiteAggregation.SearchAll("hdmi").ToList();
             var product = products.First();
             Assert.Equal(product.Name, name);
         }

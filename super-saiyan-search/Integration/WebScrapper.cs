@@ -1,5 +1,6 @@
 
 using HtmlAgilityPack;
+using SuperSaiyanSearch.Integration.Interfaces;
 
 namespace SuperSaiyanSearch.Integration
 {

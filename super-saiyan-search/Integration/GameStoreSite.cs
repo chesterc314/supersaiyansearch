@@ -4,6 +4,8 @@ using SuperSaiyanSearch.Domain.Interfaces;
 using System.Linq;
 using System;
 using System.Globalization;
+using SuperSaiyanSearch.Integration.Interfaces;
+using ScrapySharp.Extensions;
 
 namespace SuperSaiyanSearch.Integration
 {
@@ -18,20 +20,18 @@ namespace SuperSaiyanSearch.Integration
         {
             var url = "https://www.game.co.za";
             var doc = _webScrapper.Scrap($"{url}/game-za/en/search/?text={keyword}");
-            var elements = doc.DocumentNode.SelectNodes("//div[@class='product-item productListerGridDiv']");
-
+            var elements = doc.DocumentNode.CssSelect(".product-item.productListerGridDiv");
             var resultProducts = new List<Product>();
-
             foreach (var element in elements)
             {
-                var productLinkElementAttributes = element.SelectSingleNode("//a[@class='thumb gtmProductLink']").Attributes;
+                var productLinkElementAttributes = element.CssSelect(".thumb.gtmProductLink").First().Attributes;
                 var sourceUrl = $"{url}{productLinkElementAttributes.AttributesWithName("href").First().Value}";
                 var name = productLinkElementAttributes.AttributesWithName("title").First().Value;
-                var imageElementAttributes = element.SelectSingleNode("//*[@class='productPrimaryImage']/img").Attributes;
+                var imageElementAttributes = element.CssSelect(".productPrimaryImage > img").First().Attributes;
                 var imageUrl = $"{url}{imageElementAttributes.AttributesWithName("src").First().Value}";
-                var brand = element.SelectSingleNode("//div[@class='details']/div[1]/a").InnerText.Trim('\n', '\t');
+                var brand = element.CssSelect(".details > .product-brand > .brand.gtmProductLink").First().InnerText.Trim('\n', '\t');
                 var cultures = new CultureInfo("en-US");
-                var price = Convert.ToDecimal(element.SelectSingleNode("//div[@class='details']/div[3]/span[3]").InnerText.Trim('R'), cultures);
+                var price = Convert.ToDecimal(element.CssSelect(".details > .price > .finalPrice").First().InnerText.Trim('R'), cultures);
 
                 resultProducts.Add( new Product{
                     Name = name,

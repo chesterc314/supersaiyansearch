@@ -1,3 +1,4 @@
+using SuperSaiyanSearch.Integration.Interfaces;
 using Xunit;
 
 namespace SuperSaiyanSearch.Integration.Tests
