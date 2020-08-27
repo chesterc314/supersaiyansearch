@@ -19,30 +19,32 @@ namespace SuperSaiyanSearch.Integration
             var results = products.Value<JArray>("results");
 
             var resultProducts = new List<Product>();
-
-            foreach (var result in results)
+            if (results.Count > 0)
             {
-                var slug = result.SelectToken("product_views.core.slug").Value<string>();
-                var innerProducts = result.SelectToken("product_views.enhanced_ecommerce_click.ecommerce.click.products").Value<JArray>();
-                var images = result.SelectToken("product_views.gallery.images");
-                var imageUrl = images.First.Value<string>();
-                var id = innerProducts.First.SelectToken("id").Value<string>();
-                var name = innerProducts.First.SelectToken("name").Value<string>();
-                var brand = innerProducts.First.SelectToken("brand").Value<string>();
-                var price = innerProducts.First.SelectToken("price").Value<decimal>();
-                var quantity = innerProducts.First.SelectToken("quantity").Value<int>();
-                var imageUrlParts = imageUrl.Split("{size}");
-                resultProducts.Add(new Product
+                foreach (var result in results)
                 {
-                    Name = name,
-                    Description = name,
-                    Price = price,
-                    Brand = brand,
-                    Source = "Takealot",
-                    SourceUrl = $"https://www.takealot.com/{slug}/{id}",
-                    ImageUrl = $"{imageUrlParts[0]}fb{imageUrlParts[1]}",
-                    Units = quantity
-                });
+                    var slug = result.SelectToken("product_views.core.slug").Value<string>();
+                    var innerProducts = result.SelectToken("product_views.enhanced_ecommerce_click.ecommerce.click.products").Value<JArray>();
+                    var images = result.SelectToken("product_views.gallery.images");
+                    var imageUrl = images.First.Value<string>();
+                    var id = innerProducts.First.SelectToken("id").Value<string>();
+                    var name = innerProducts.First.SelectToken("name").Value<string>();
+                    var brand = innerProducts.First.SelectToken("brand").Value<string>();
+                    var price = innerProducts.First.SelectToken("price").Value<decimal>();
+                    var quantity = innerProducts.First.SelectToken("quantity").Value<int>();
+                    var imageUrlParts = imageUrl.Split("{size}");
+                    resultProducts.Add(new Product
+                    {
+                        Name = name,
+                        Description = name,
+                        Price = price,
+                        Brand = brand,
+                        Source = "Takealot",
+                        SourceUrl = $"https://www.takealot.com/{slug}/{id}",
+                        ImageUrl = $"{imageUrlParts[0]}fb{imageUrlParts[1]}",
+                        Units = quantity
+                    });
+                }
             }
 
             return resultProducts;

@@ -24,32 +24,35 @@ namespace SuperSaiyanSearch.Integration
             var doc = _webScrapper.Scrap($"{url}/catalog/category/searchResult?q={keyword}");
             var elements = doc.DocumentNode.CssSelect(".products-grid > li.item");
             var resultProducts = new List<Product>();
-            foreach (var element in elements)
+            if (elements.Any())
             {
-                var productLinkElementAttributes = element.CssSelect(".product-wrapper > .img-wrapper > .product-image").First().Attributes;
-                var sourceUrl = productLinkElementAttributes.AttributesWithName("href").First().Value;
-                var name = productLinkElementAttributes.AttributesWithName("title").First().Value;
-                var imageElementAttributes = element.CssSelect(".product-wrapper > .img-wrapper > .product-image > .grid-image-wrapper > img").First().Attributes;
-                var imageUrl = imageElementAttributes.AttributesWithName("data-src").First().Value;
-                var brand = name.Split(" ")[0];
-                var cultures = new CultureInfo("en-US");
-                var regularPriceBox = element.CssSelect(".product-wrapper > .price-grid-box > .regular-price-box > .regular-price").FirstOrDefault();
-                var specialPriceBox = element.CssSelect(".product-wrapper > .price-grid-box > .special-price-box > .regular-price");
-                var priceValue = (regularPriceBox ?? specialPriceBox.First()).InnerHtml.Trim('\n').Trim('R').Trim();
-                var price = Convert.ToDecimal(priceValue, cultures);
+                foreach (var element in elements)
+                {
+                    var productLinkElementAttributes = element.CssSelect(".product-wrapper > .img-wrapper > .product-image").First().Attributes;
+                    var sourceUrl = productLinkElementAttributes.AttributesWithName("href").First().Value;
+                    var name = productLinkElementAttributes.AttributesWithName("title").First().Value;
+                    var imageElementAttributes = element.CssSelect(".product-wrapper > .img-wrapper > .product-image > .grid-image-wrapper > img").First().Attributes;
+                    var imageUrl = imageElementAttributes.AttributesWithName("data-src").First().Value;
+                    var brand = name.Split(" ")[0];
+                    var cultures = new CultureInfo("en-US");
+                    var regularPriceBox = element.CssSelect(".product-wrapper > .price-grid-box > .regular-price-box > .regular-price").FirstOrDefault();
+                    var specialPriceBox = element.CssSelect(".product-wrapper > .price-grid-box > .special-price-box > .regular-price");
+                    var priceValue = (regularPriceBox ?? specialPriceBox.First()).InnerHtml.Trim('\n').Trim('R').Trim();
+                    var price = Convert.ToDecimal(priceValue, cultures);
 
-                resultProducts.Add( new Product{
-                    Name = name,
-                    Description = name,
-                    Price = price,
-                    Units = 1,
-                    Brand = brand,
-                    Source = "IncredibleConnection",
-                    SourceUrl = sourceUrl,
-                    ImageUrl =  imageUrl
-                });
+                    resultProducts.Add(new Product
+                    {
+                        Name = name,
+                        Description = name,
+                        Price = price,
+                        Units = 1,
+                        Brand = brand,
+                        Source = "HifiCorp",
+                        SourceUrl = sourceUrl,
+                        ImageUrl = imageUrl
+                    });
+                }
             }
-
             return resultProducts;
         }
     }
