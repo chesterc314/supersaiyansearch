@@ -17,7 +17,12 @@ namespace SuperSaiyanSearch.Integration
         {
             get
             {
-                return new List<IStoreSite> { new TakealotStoreSite(), new GameStoreSite(_webScrapper), new IncredibleConnectionStoreSite(_webScrapper) };
+                return new List<IStoreSite> {
+                    new TakealotStoreSite(),
+                    new GameStoreSite(_webScrapper),
+                    new IncredibleConnectionStoreSite(_webScrapper),
+                    new MakroStoreSite(_webScrapper)
+                };
             }
         }
     }
