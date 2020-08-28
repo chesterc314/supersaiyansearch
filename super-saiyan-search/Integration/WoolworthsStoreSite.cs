@@ -11,10 +11,8 @@ namespace SuperSaiyanSearch.Integration
     {
         public IEnumerable<IProduct> Search(string keyword)
         {
-            var url = "https://www.woolworths.co.za";
+            //var url = "https://www.woolworths.co.za";
             var resultProducts = new List<Product>();
-
-
             return resultProducts;
         }
     }

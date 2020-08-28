@@ -20,7 +20,7 @@ namespace SuperSaiyanSearch.Integration
 
         public IEnumerable<IProduct> Search(string keyword)
         {
-           var url = "https://clicks.co.za";
+            var url = "https://clicks.co.za";
             var doc = _webScrapper.Scrap($"{url}/search/?cat=&text={keyword}");
             var elements = doc.DocumentNode.CssSelect(".plpsep");
             var resultProducts = new List<Product>();
@@ -46,7 +46,7 @@ namespace SuperSaiyanSearch.Integration
                         Price = price,
                         Units = 1,
                         Brand = brand,
-                        Source = "Checkers",
+                        Source = "Clicks",
                         SourceUrl = sourceUrl,
                         ImageUrl = imageUrl
                     });

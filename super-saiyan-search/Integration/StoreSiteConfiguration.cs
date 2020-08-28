@@ -25,7 +25,9 @@ namespace SuperSaiyanSearch.Integration
                     new HifiCorpStoreSite(_webScrapper),
                     new CheckersStoreSite(_webScrapper),
                     new ShopriteStoreSite(_webScrapper),
-                    new PickNPayStoreSite(_webScrapper)
+                    new PickNPayStoreSite(_webScrapper),
+                    new ClicksStoreSite(_webScrapper),
+                    new DischemStoreSite(_webScrapper)
                 };
             }
         }
