@@ -46,7 +46,7 @@ namespace SuperSaiyanSearch.Integration
                         Price = price,
                         Units = 1,
                         Brand = brand,
-                        Source = "Clicks",
+                        Source = StoreSiteName.Clicks.ToString(),
                         SourceUrl = sourceUrl,
                         ImageUrl = imageUrl
                     });

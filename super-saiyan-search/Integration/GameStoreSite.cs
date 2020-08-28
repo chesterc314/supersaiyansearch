@@ -42,7 +42,7 @@ namespace SuperSaiyanSearch.Integration
                         Price = price,
                         Units = 1,
                         Brand = brand,
-                        Source = "Game",
+                        Source = StoreSiteName.Game.ToString(),
                         SourceUrl = sourceUrl,
                         ImageUrl = imageUrl
                     });

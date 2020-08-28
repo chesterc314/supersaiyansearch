@@ -39,7 +39,7 @@ namespace SuperSaiyanSearch.Integration
                         Description = name,
                         Price = price,
                         Brand = brand,
-                        Source = "Takealot",
+                        Source = StoreSiteName.Takealot.ToString(),
                         SourceUrl = $"https://www.takealot.com/{slug}/{id}",
                         ImageUrl = $"{imageUrlParts[0]}fb{imageUrlParts[1]}",
                         Units = quantity

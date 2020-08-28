@@ -43,7 +43,7 @@ namespace SuperSaiyanSearch.Integration
                         Price = price,
                         Units = 1,
                         Brand = brand,
-                        Source = "IncredibleConnection",
+                        Source = StoreSiteName.IncredibleConnection.ToString(),
                         SourceUrl = sourceUrl,
                         ImageUrl = imageUrl
                     });

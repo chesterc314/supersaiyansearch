@@ -52,7 +52,7 @@ namespace SuperSaiyanSearch.Integration
                         Price = price,
                         Units = 1,
                         Brand = brand,
-                        Source = "Makro",
+                        Source = StoreSiteName.Makro.ToString(),
                         SourceUrl = sourceUrl,
                         ImageUrl = imageUrl
                     });

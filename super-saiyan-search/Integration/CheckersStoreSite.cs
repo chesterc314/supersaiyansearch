@@ -46,7 +46,7 @@ namespace SuperSaiyanSearch.Integration
                         Price = price,
                         Units = 1,
                         Brand = brand,
-                        Source = "Checkers",
+                        Source = StoreSiteName.Checkers.ToString(),
                         SourceUrl = sourceUrl,
                         ImageUrl = imageUrl
                     });

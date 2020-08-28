@@ -32,7 +32,7 @@ namespace SuperSaiyanSearch.Integration
                     var sourceUrl = productLinkElementAttributes.AttributesWithName("href").First().Value;
                     var name = element.CssSelect(".product-item-info > .product-item-details > .product-item-name > .product-item-link").First().InnerText;
                     var imageElementAttributes = element.CssSelect(".product-item-info > .image > .product-item-photo > .product-image-container > .product-image-wrapper > .product-image-photo").First().Attributes;
-                    var imageUrl = $"{url}{imageElementAttributes.AttributesWithName("src").First().Value}";
+                    var imageUrl = imageElementAttributes.AttributesWithName("src").First().Value;
                     var brand = name.Split(" ")[0];
                     var cultures = new CultureInfo("en-US");
                     var priceElement = element
@@ -49,7 +49,7 @@ namespace SuperSaiyanSearch.Integration
                         Price = price,
                         Units = 1,
                         Brand = brand,
-                        Source = "Dischem",
+                        Source = StoreSiteName.Dischem.ToString(),
                         SourceUrl = sourceUrl,
                         ImageUrl = imageUrl
                     });
