@@ -5,12 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AutoMapper;
-using SuperSaiyanSearch.DataAccess;
-using SuperSaiyanSearch.Domain;
 using SuperSaiyanSearch.Domain.Interfaces;
 using SuperSaiyanSearch.Integration.Interfaces;
 using SuperSaiyanSearch.Integration;
-using Microsoft.EntityFrameworkCore;
 using SuperSaiyanSearch.Api;
 using SuperSaiyanSearch.Api.Interfaces;
 
@@ -28,7 +25,6 @@ namespace SuperSaiyanSearchApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ProductContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ProductConnection"), b => b.MigrationsAssembly("DataAccess")));
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSingleton<IWebScrapper, WebScrapper>();
             services.AddScoped<IStoreSiteConfiguration, StoreSiteConfiguration>();

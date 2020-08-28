@@ -1,7 +1,4 @@
-﻿using System;
-using SuperSaiyanSearch.Domain;
-using SuperSaiyanSearch.Domain.Interfaces;
-using SuperSaiyanSearch.Integration.Interfaces;
+﻿using SuperSaiyanSearch.Integration.Interfaces;
 using AutoMapper;
 using System.Collections.Generic;
 using System.Linq;
