@@ -1,7 +1,7 @@
-namespace SuperSaiyanSearch.Api
+namespace SuperSaiyanSearch.Api.Interfaces
 {
     public interface IProductApi
     {
-        ProductsReadDto Search(string keyword, string next, string previous, int? limit);
+        ProductsReadDto Search(string keyword);
     }
 }

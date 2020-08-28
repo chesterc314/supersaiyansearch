@@ -13,7 +13,7 @@ namespace SuperSaiyanSearch.Integration
     {
         private IWebScrapper _webScrapper;
 
-        public ShopriteStoreSite(WebScrapper webScrapper)
+        public ShopriteStoreSite(IWebScrapper webScrapper)
         {
             _webScrapper = webScrapper;
         }

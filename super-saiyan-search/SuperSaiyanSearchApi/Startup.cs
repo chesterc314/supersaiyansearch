@@ -11,6 +11,8 @@ using SuperSaiyanSearch.Domain.Interfaces;
 using SuperSaiyanSearch.Integration.Interfaces;
 using SuperSaiyanSearch.Integration;
 using Microsoft.EntityFrameworkCore;
+using SuperSaiyanSearch.Api;
+using SuperSaiyanSearch.Api.Interfaces;
 
 namespace SuperSaiyanSearchApi
 {
@@ -28,10 +30,10 @@ namespace SuperSaiyanSearchApi
         {
             services.AddDbContext<ProductContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ProductConnection"), b => b.MigrationsAssembly("DataAccess")));
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddScoped<IPageRepository<Product, Guid>, ProductRepository>();
             services.AddSingleton<IWebScrapper, WebScrapper>();
             services.AddScoped<IStoreSiteConfiguration, StoreSiteConfiguration>();
             services.AddScoped<IStoreSiteAggregation, StoreSiteAggregation>();
+            services.AddScoped<IProductApi, ProductApi>();
             services.AddControllers().AddNewtonsoftJson(options => options.UseMemberCasing());
         }
 

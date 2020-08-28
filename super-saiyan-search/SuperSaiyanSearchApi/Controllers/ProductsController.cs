@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SuperSaiyanSearch.Api;
+using SuperSaiyanSearch.Api.Interfaces;
 
 namespace SuperSaiyanSearchApi.Controllers
 {
@@ -11,29 +13,20 @@ namespace SuperSaiyanSearchApi.Controllers
     [Route("api/[controller]")]
     public class ProductsController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
 
         private readonly ILogger<ProductsController> _logger;
+        private readonly IProductApi _productApi;
 
-        public ProductsController(ILogger<ProductsController> logger)
+        public ProductsController(ILogger<ProductsController> logger, IProductApi productApi)
         {
             _logger = logger;
+            _productApi = productApi;
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get([FromQuery] int? limit, [FromQuery] string next, [FromQuery] string previous)
+        public ProductsReadDto Get([FromQuery] string q)
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return _productApi.Search(q);
         }
     }
 }

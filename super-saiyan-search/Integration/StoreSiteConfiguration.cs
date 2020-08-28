@@ -21,7 +21,11 @@ namespace SuperSaiyanSearch.Integration
                     new TakealotStoreSite(),
                     new GameStoreSite(_webScrapper),
                     new IncredibleConnectionStoreSite(_webScrapper),
-                    new MakroStoreSite(_webScrapper)
+                    new MakroStoreSite(_webScrapper),
+                    new HifiCorpStoreSite(_webScrapper),
+                    new CheckersStoreSite(_webScrapper),
+                    new ShopriteStoreSite(_webScrapper),
+                    new PickNPayStoreSite(_webScrapper)
                 };
             }
         }

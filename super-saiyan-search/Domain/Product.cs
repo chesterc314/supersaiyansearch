@@ -11,7 +11,6 @@ namespace SuperSaiyanSearch.Domain
         public string Name { get; set; }
         [Required]
         public string Description { get; set; }
-        [Required]
         public string Brand { get; set; }
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Price { get; set; }
@@ -29,7 +28,8 @@ namespace SuperSaiyanSearch.Domain
 
         public Product()
         {
-
+            this.CreatedDate = DateTime.UtcNow;
+            this.Id = Guid.NewGuid();
         }
 
         public Product(IProduct product)
