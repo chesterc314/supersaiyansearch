@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using SuperSaiyanSearch.Api;
 using SuperSaiyanSearch.Api.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Cors;
 
 namespace SuperSaiyanSearchApi.Controllers
 {
@@ -20,6 +21,7 @@ namespace SuperSaiyanSearchApi.Controllers
             _productApi = productApi;
         }
         [HttpGet]
+        [EnableCors("AllowOrigin")]
         public ActionResult<ProductsReadDto> Get([FromQuery] string q)
         {
             var results = new ProductsReadDto(new List<ProductReadDto>());
