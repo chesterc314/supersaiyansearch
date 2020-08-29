@@ -27,7 +27,8 @@ namespace SuperSaiyanSearch.Integration
                     new ShopriteStoreSite(_webScrapper),
                     new PickNPayStoreSite(_webScrapper),
                     new ClicksStoreSite(_webScrapper),
-                    new DischemStoreSite(_webScrapper)
+                    new DischemStoreSite(_webScrapper),
+                    new MatrixWarehouseStoreSite(_webScrapper)
                 };
             }
         }
