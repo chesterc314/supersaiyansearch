@@ -33,7 +33,7 @@ namespace SuperSaiyanSearch.Integration
                     var imageUrl = imageElementAttributes.AttributesWithName("data-src").First().Value;
                     var brand = name.Split(" ")[0];
                     var cultures = new CultureInfo("en-US");
-                    var priceValue = element.CssSelect(".grid-product-price > .price").First().InnerText.Trim('\n').Trim('R');
+                    var priceValue = element.CssSelect(".grid-product-price > .price").First().InnerText.Replace("\n", "").Replace("R", "");
                     var price = Convert.ToDecimal(priceValue, cultures);
 
                     resultProducts.Add(new Product

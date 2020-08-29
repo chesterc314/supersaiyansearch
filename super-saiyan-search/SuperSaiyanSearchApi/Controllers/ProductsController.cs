@@ -29,7 +29,7 @@ namespace SuperSaiyanSearchApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(new EventId(results.GetHashCode(), Guid.NewGuid().ToString()), ex, "Error occurred proccessing the request");
+                _logger.LogError(new EventId(results.GetHashCode(), Guid.NewGuid().ToString()), ex, $"Error occurred proccessing the request. Query parameter: {q}");
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
 
