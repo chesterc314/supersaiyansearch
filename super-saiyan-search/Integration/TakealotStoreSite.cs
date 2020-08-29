@@ -3,16 +3,21 @@ using Newtonsoft.Json.Linq;
 using RestSharp;
 using SuperSaiyanSearch.Domain;
 using SuperSaiyanSearch.Domain.Interfaces;
+using SuperSaiyanSearch.Integration.Interfaces;
 
 namespace SuperSaiyanSearch.Integration
 {
     public class TakealotStoreSite : IStoreSite
     {
+        private readonly IHttpClient _httpClient;
+
+        public TakealotStoreSite(IHttpClient httpClient)
+        {
+            _httpClient = httpClient;
+        }
         public IEnumerable<IProduct> Search(string keyword)
         {
-            var client = new RestClient($"https://api.takealot.com/rest/v-1-9-1/searches/products,filters,facets,sort_options,breadcrumbs,slots_audience,context,seo?qsearch={keyword}");
-            var request = new RestRequest();
-            var response = client.Get(request);
+            var response = _httpClient.Get($"https://api.takealot.com/rest/v-1-9-1/searches/products,filters,facets,sort_options,breadcrumbs,slots_audience,context,seo?qsearch={keyword}");
             var parent = JObject.Parse(response.Content);
             var sections = parent.Value<JObject>("sections");
             var products = sections.Value<JObject>("products");

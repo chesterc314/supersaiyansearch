@@ -16,8 +16,9 @@ namespace SuperSaiyanSearch.Integration.Tests
         public void GivenUrlWhenSearchingScrapThenReturnSiteContent()
         {
             var results = _incredibleConnectionStoreSite.Search("laptop");
-            Assert.Equal(true, results.All(r => r.Price > 0));
+            var hasPositivePrices = true;
             Assert.NotNull(results);
+            Assert.Equal(hasPositivePrices, results.All(r => r.Price > 0));
         }
     }
 }

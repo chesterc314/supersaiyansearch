@@ -10,14 +10,15 @@ namespace SuperSaiyanSearch.Integration.Tests
 
         public TakealotStoreSiteUnitTest()
         {
-           _takealotStoreSite = new TakealotStoreSite();
+           _takealotStoreSite = new TakealotStoreSite(new HttpClient());
         }
         [Fact]
         public void GivenUrlWhenSearchingScrapThenReturnSiteContent()
         {
             var results = _takealotStoreSite.Search("laptop");
-            Assert.Equal(true, results.All(r => r.Price > 0));
+            var hasPositivePrices = true;
             Assert.NotNull(results);
+            Assert.Equal(hasPositivePrices, results.All(r => r.Price > 0));
         }
     }
 }

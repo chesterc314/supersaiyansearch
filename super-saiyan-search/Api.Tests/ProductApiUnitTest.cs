@@ -31,7 +31,7 @@ namespace SuperSaiyanSearch.Api.Tests
                             ImageUrl = p.ImageUrl
                         });
                     });
-            _productApi = new ProductApi(new StoreSiteAggregation(new StoreSiteConfiguration(new WebScrapper())), mockMapper.Object);
+            _productApi = new ProductApi(new StoreSiteAggregation(new StoreSiteConfiguration(new WebScrapper(), new HttpClient())), mockMapper.Object);
         }
         [Fact]
         public void GivenKeywordWhenInvokingSearchThenReturnPostivePriceValues()

@@ -27,6 +27,7 @@ namespace SuperSaiyanSearchApi
         {
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSingleton<IWebScrapper, WebScrapper>();
+            services.AddScoped<IHttpClient, HttpClient>();
             services.AddScoped<IStoreSiteConfiguration, StoreSiteConfiguration>();
             services.AddScoped<IStoreSiteAggregation, StoreSiteAggregation>();
             services.AddScoped<IProductApi, ProductApi>();
