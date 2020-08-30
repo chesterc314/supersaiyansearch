@@ -66,7 +66,7 @@ export default function TitlebarGridList({ hostUrl }) {
                 .then(result => {
                     setIsSearchClicked(false);
                     if (result.status === 200) {
-                        setProductResult(JSON.parse(result.json));
+                        setProductResult(result.json);
                     }
                     else if (result.status === 404) {
                         setMessage(`No products found for your search query: ${keyword}`);
