@@ -49,6 +49,8 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         paddingTop: '8px',
         paddingBottom: '8px',
+        position: 'sticky',
+        top: '0',
     },
     progress: {
         display: 'flex',
@@ -198,7 +200,6 @@ export default function TitlebarGridList({ hostUrl, isTest }) {
                 </GridList>
             </div>
             {resultsComponent()}
-            {differenceComponent()}
             <Snackbar anchorOrigin={{
                 vertical: 'bottom',
                 horizontal: 'center',
