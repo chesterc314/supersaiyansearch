@@ -17,7 +17,10 @@ namespace SuperSaiyanSearch.Api
         }
         public ProductsReadDto Search(string keyword)
         {
-            var productItems = _storeSiteAggregation.SearchAll(keyword).Where(product => product.Name.ToLower().Contains(keyword.ToLower()));
+            var productItems = _storeSiteAggregation
+            .SearchAll(keyword)
+            .Where(product => product.Name.ToLower().Contains(keyword.ToLower()))
+            .OrderBy(product => product.Price);
             var products = _mapper.Map<IEnumerable<ProductReadDto>>(productItems);
             var productsReadDto = new ProductsReadDto(products);
             productsReadDto.TotalResults = products.Count();

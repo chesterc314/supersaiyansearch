@@ -34,7 +34,6 @@ namespace SuperSaiyanSearchApi.Controllers
                 _logger.LogError(new EventId(results.GetHashCode(), Guid.NewGuid().ToString()), ex, $"Error occurred proccessing the request. Query parameter: {q}");
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
-
             if (results.TotalResults == 0)
             {
                 var notFoundMessage = $"No products found for your search query: {q}";

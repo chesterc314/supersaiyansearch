@@ -2,7 +2,7 @@ import React from 'react';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import SearchPage from './Pages/SearchPage';
-import Settings from './settings.dev.json';
+import Settings from './settings.json';
 
 function Copyright() {
   return (

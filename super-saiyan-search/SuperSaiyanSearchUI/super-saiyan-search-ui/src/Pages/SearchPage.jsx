@@ -1,14 +1,5 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-//import ListSubheader from '@material-ui/core/ListSubheader';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import { Typography, CircularProgress } from '@material-ui/core';
-import Link from '@material-ui/core/Link';
-import Fab from '@material-ui/core/Fab';
+import { makeStyles, Typography, CircularProgress, GridList, GridListTile, GridListTileBar, Button, TextField, Link, Fab, Snackbar } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -18,10 +9,15 @@ const useStyles = makeStyles((theme) => ({
         overflow: 'hidden',
         backgroundColor: theme.palette.background.paper,
     },
+    logo: {
+        display: 'flex',
+        justifyContent: 'center',
+        paddingTop: '24px',
+    },
     search: {
         display: 'flex',
         justifyContent: 'space-around',
-        paddingTop: '24px',
+        paddingTop: '12px',
     },
     searchButton: {
         display: 'flex',
@@ -51,6 +47,8 @@ export default function TitlebarGridList({ hostUrl }) {
     const [productResult, setProductResult] = useState(null);
     const [keyword, setKeyword] = useState(null);
     const [isSearchClicked, setIsSearchClicked] = useState(false);
+    const [open, setOpen] = React.useState(false);
+    const [message, setMessage] = React.useState("");
     const classes = useStyles();
 
     const fetchProductsFromApi = () => {
@@ -63,13 +61,31 @@ export default function TitlebarGridList({ hostUrl }) {
             fetch(`${hostUrl}/api/products?q=${keyword}`, requestOptions)
                 .then(response => {
                     const json = response.json();
-                    console.log(json);
-                    return json;
+                    return { json: json, status: response.status };
                 })
                 .then(result => {
-                    setProductResult(result);
                     setIsSearchClicked(false);
-                }).catch(error => console.log('error', error));
+                    if (result.status === 200) {
+                        setProductResult(JSON.parse(result.json));
+                    }
+                    else if (result.status === 404) {
+                        setMessage(`No products found for your search query: ${keyword}`);
+                        setOpen(true);
+                    }
+                    else {
+                        setMessage("An error occurred while processing your request.");
+                        setOpen(true);
+                    }
+                })
+                .catch(error => {
+                    setIsSearchClicked(false);
+                    if (error.toString().includes("NetworkError")) {
+                        setMessage("Error connecting to the back-end server or not connected to the internet");
+                    } else {
+                        setMessage(`Unexpected error occurred: ${error}`);
+                    }
+                    setOpen(true);
+                });
         }
     };
 
@@ -81,16 +97,26 @@ export default function TitlebarGridList({ hostUrl }) {
         if (e.key === 'Enter') {
             fetchProductsFromApi();
         }
-    }
+    };
 
     const resultsComponent = () => (<div className={classes.results}>
-        {(productResult !== null) && <Typography component="h3">Total Results: {productResult.totalResults}</Typography>}
+        {(productResult !== null) && <Typography component="p">Total results: {productResult.totalResults}</Typography>}
     </div>);
-    
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
+    };
+
     return (
         <React.Fragment>
+            <div className={classes.logo}>
+                <img src="logo.png" width='15%' height='15%' alt="Super Saiyan Search Logo" />
+            </div>
             <div className={classes.search}>
-                {!isSearchClicked && <TextField id="search" label="Keyword" aria-label="Keyword" value={keyword} onChange={e => setKeyword(e.target.value)} onKeyDown={handleKeyDown} fullWidth required />}
+                {!isSearchClicked && <TextField id="search" label="Keyword" aria-label="Keyword" value={keyword !== null ? keyword : ""} onChange={e => setKeyword(e.target.value)} onKeyDown={handleKeyDown} fullWidth required />}
                 {(productResult === null && isSearchClicked) && <div className={classes.progress}><CircularProgress aria-label="loading" /></div>}
             </div>
             <div className={classes.searchButton}>
@@ -100,16 +126,17 @@ export default function TitlebarGridList({ hostUrl }) {
             <div className={classes.root}>
                 <GridList cols={4} component="ul">
                     {(productResult !== null) && productResult.products.map((product) => (
-                        <GridListTile key={product.name}>
-                            <Link color="inherit" href={product.sourceUrl} target="_blank"><img src={product.imageUrl} alt={product.name} width="70%" height="80%" /></Link>
-                            <GridListTileBar
-                                title={product.name}
-                                subtitle={
-                                    <React.Fragment>
-                                        <div>Price: {product.price}</div>
-                                        <div>Source: {product.source}</div>
-                                    </React.Fragment>
-                                } />
+                        <GridListTile key={`${product.name}-${product.brand}`}>
+                            <Link color="inherit" href={product.sourceUrl} target="_blank"><img src={product.imageUrl} alt={product.name} width="40%" height="80%" />
+                                <GridListTileBar
+                                    title={product.name}
+                                    subtitle={
+                                        <React.Fragment>
+                                            <div>Price: R{product.price}</div>
+                                            <div>Source: {product.source}</div>
+                                        </React.Fragment>
+                                    } />
+                            </Link>
                         </GridListTile>
                     ))}
                 </GridList>
@@ -119,6 +146,10 @@ export default function TitlebarGridList({ hostUrl }) {
                 <div className={classes.compareButton}>
                     <Fab variant="extended" color="primary" aria-label="Compare">Compare</Fab>
                 </div>}
+            <Snackbar anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+            }} open={open} message={<span>{message}</span>} autoHideDuration={6000} onClose={handleClose} />
         </React.Fragment>
     );
 }
