@@ -66,15 +66,18 @@ export default function TitlebarGridList({ hostUrl }) {
                 .then(result => {
                     setIsSearchClicked(false);
                     if (result.status === 200) {
-                        setProductResult(result.json);
-                    }
-                    else if (result.status === 404) {
+                        return result.json;
+                    } else if (result.status === 404) {
                         setMessage(`No products found for your search query: ${keyword}`);
                         setOpen(true);
-                    }
-                    else {
+                    } else {
                         setMessage("An error occurred while processing your request.");
                         setOpen(true);
+                    }
+                })
+                .then(result => {
+                    if (result) {
+                        setProductResult(result);
                     }
                 })
                 .catch(error => {
@@ -125,9 +128,9 @@ export default function TitlebarGridList({ hostUrl }) {
             {resultsComponent()}
             <div className={classes.root}>
                 <GridList cols={4} component="ul">
-                    {(productResult !== null) && productResult.products.map((product) => (
-                        <GridListTile key={`${product.name}-${product.brand}`}>
-                            <Link color="inherit" href={product.sourceUrl} target="_blank"><img src={product.imageUrl} alt={product.name} width="40%" height="80%" />
+                    {(productResult !== null) && productResult.products.map((product, index) => (
+                        <GridListTile key={`${product.brand}-${index}`}>
+                            <Link color="inherit" href={product.sourceUrl} target="_blank"><img src={product.imageUrl} alt={product.name} width="45%" height="90%" />
                                 <GridListTileBar
                                     title={product.name}
                                     subtitle={

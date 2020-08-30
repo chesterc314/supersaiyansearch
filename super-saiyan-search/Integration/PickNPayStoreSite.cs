@@ -9,11 +9,11 @@ using SuperSaiyanSearch.Integration.Interfaces;
 
 namespace SuperSaiyanSearch.Integration
 {
-    public class PickNPayStoreSite : IStoreSite
+    public class PicknPayStoreSite : IStoreSite
     {
         private IWebScrapper _webScrapper;
 
-        public PickNPayStoreSite(IWebScrapper webScrapper)
+        public PicknPayStoreSite(IWebScrapper webScrapper)
         {
             _webScrapper = webScrapper;
         }
@@ -47,7 +47,7 @@ namespace SuperSaiyanSearch.Integration
                         Price = price,
                         Units = 1,
                         Brand = brand,
-                        Source = StoreSiteName.PickNPay.ToString(),
+                        Source = StoreSiteName.PicknPay.ToString(),
                         SourceUrl = sourceUrl,
                         ImageUrl = imageUrl
                     });
