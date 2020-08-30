@@ -6,6 +6,7 @@ using ScrapySharp.Extensions;
 using SuperSaiyanSearch.Domain;
 using SuperSaiyanSearch.Domain.Interfaces;
 using SuperSaiyanSearch.Integration.Interfaces;
+using System.Web;
 
 namespace SuperSaiyanSearch.Integration
 {
@@ -44,8 +45,8 @@ namespace SuperSaiyanSearch.Integration
 
                     resultProducts.Add(new Product
                     {
-                        Name = name,
-                        Description = name,
+                        Name = HttpUtility.HtmlDecode(name),
+                        Description = HttpUtility.HtmlDecode(name),
                         Price = price,
                         Units = 1,
                         Brand = brand,

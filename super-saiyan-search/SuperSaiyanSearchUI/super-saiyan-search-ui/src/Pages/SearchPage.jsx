@@ -65,6 +65,7 @@ export default function TitlebarGridList({ hostUrl }) {
                 })
                 .then(result => {
                     setIsSearchClicked(false);
+                    setKeyword("");
                     if (result.status === 200) {
                         return result.json;
                     } else if (result.status === 404) {
@@ -147,7 +148,7 @@ export default function TitlebarGridList({ hostUrl }) {
             {resultsComponent()}
             {(productResult !== null) &&
                 <div className={classes.compareButton}>
-                    <Fab variant="extended" color="primary" aria-label="Compare">Compare</Fab>
+                    <Fab variant="extended" color="primary" aria-label="Compare" style={{position:'fixed'}}>Compare</Fab>
                 </div>}
             <Snackbar anchorOrigin={{
                 vertical: 'bottom',

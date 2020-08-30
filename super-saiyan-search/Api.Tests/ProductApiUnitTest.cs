@@ -37,8 +37,9 @@ namespace SuperSaiyanSearch.Api.Tests
         public void GivenKeywordWhenInvokingSearchThenReturnPostivePriceValues()
         {
             var keyword = "laptop";
+            var isPositivePrice = true;
             var results = _productApi.Search(keyword);
-            Assert.Equal(true, results.Products.All(p => p.Price > 0));
+            Assert.Equal(isPositivePrice, results.Products.All(p => p.Price > 0));
         }
     }
 }

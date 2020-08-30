@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
-using RestSharp;
 using SuperSaiyanSearch.Domain;
 using SuperSaiyanSearch.Domain.Interfaces;
 using SuperSaiyanSearch.Integration.Interfaces;
+using System.Web;
 
 namespace SuperSaiyanSearch.Integration
 {
@@ -40,8 +40,8 @@ namespace SuperSaiyanSearch.Integration
                     var imageUrlParts = imageUrl.Split("{size}");
                     resultProducts.Add(new Product
                     {
-                        Name = name,
-                        Description = name,
+                        Name = HttpUtility.HtmlDecode(name),
+                        Description = HttpUtility.HtmlDecode(name),
                         Price = price,
                         Brand = brand,
                         Source = StoreSiteName.Takealot.ToString(),

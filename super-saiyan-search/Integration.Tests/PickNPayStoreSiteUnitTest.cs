@@ -4,13 +4,13 @@ using Xunit;
 
 namespace SuperSaiyanSearch.Integration.Tests
 {
-    public class PickNPayStoreSiteUnitTest
+    public class PicknPayStoreSiteUnitTest
     {
         private readonly IStoreSite _pickNPayStoreSite;
 
-        public PickNPayStoreSiteUnitTest()
+        public PicknPayStoreSiteUnitTest()
         {
-           _pickNPayStoreSite = new PickNPayStoreSite(new WebScrapper());
+           _pickNPayStoreSite = new PicknPayStoreSite(new WebScrapper());
         }
         [Fact]
         public void GivenUrlWhenSearchingScrapThenReturnSiteContent()
