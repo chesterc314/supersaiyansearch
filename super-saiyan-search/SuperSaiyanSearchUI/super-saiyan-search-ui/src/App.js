@@ -2,15 +2,14 @@ import React from 'react';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import SearchPage from './Pages/SearchPage';
-import Link from '@material-ui/core/Link';
+import Settings from './settings.dev.json';
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright TM '}
-      <Link color="inherit" href="https://material-ui.com/">
+      {'Copyright '}{'\u2122'}{' '}
         Super Saiyan Search
-      </Link>{' '}
+      {' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -19,8 +18,8 @@ function Copyright() {
 
 export default function App() {
   return (
-    <Container maxWidth="sm">
-      <SearchPage />
+    <Container maxWidth="xl">
+      <SearchPage hostUrl={Settings.hostUrl} />
       <Copyright />
     </Container>
   );
