@@ -19,7 +19,7 @@ function Copyright() {
 export default function App() {
   return (
     <Container maxWidth="xl">
-      <SearchPage hostUrl={Settings.hostUrl} />
+      <SearchPage hostUrl={Settings.hostUrl} isTest={Settings.isTest} />
       <Copyright />
     </Container>
   );

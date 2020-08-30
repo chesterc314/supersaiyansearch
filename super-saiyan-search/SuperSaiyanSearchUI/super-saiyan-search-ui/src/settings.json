@@ -1,3 +1,4 @@
 {
-    "hostUrl": "https://localhost:5001"
+    "hostUrl": "https://localhost:5001",
+    "isTest": true
 }

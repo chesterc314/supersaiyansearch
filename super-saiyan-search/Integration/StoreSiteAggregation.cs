@@ -16,7 +16,7 @@ namespace SuperSaiyanSearch.Integration
         {
             IEnumerable<IStoreSite> storeSites = _storeSiteConfiguration.StoreSites;
             IEnumerable<IProduct> products = storeSites.SelectMany(storeSite => storeSite.Search(keyword));
-            return products.ToList();
+            return products;
         }
     }
 }

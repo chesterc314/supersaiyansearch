@@ -1,5 +1,18 @@
 import React, { useState } from 'react';
-import { makeStyles, Typography, CircularProgress, GridList, GridListTile, GridListTileBar, Button, TextField, Link, Fab, Snackbar } from '@material-ui/core';
+import {
+    makeStyles,
+    Typography,
+    CircularProgress,
+    GridList,
+    GridListTile,
+    GridListTileBar,
+    Button,
+    TextField,
+    Link,
+    Snackbar,
+    Checkbox
+} from '@material-ui/core';
+import testPayload from './testpayload.json';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -31,9 +44,11 @@ const useStyles = makeStyles((theme) => ({
         paddingTop: '8px',
         paddingBottom: '8px',
     },
-    compareButton: {
+    difference: {
         display: 'flex',
-        justifyContent: 'right',
+        justifyContent: 'center',
+        paddingTop: '8px',
+        paddingBottom: '8px',
     },
     progress: {
         display: 'flex',
@@ -43,12 +58,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function TitlebarGridList({ hostUrl }) {
+export default function TitlebarGridList({ hostUrl, isTest }) {
     const [productResult, setProductResult] = useState(null);
     const [keyword, setKeyword] = useState(null);
     const [isSearchClicked, setIsSearchClicked] = useState(false);
-    const [open, setOpen] = React.useState(false);
-    const [message, setMessage] = React.useState("");
+    const [open, setOpen] = useState(false);
+    const [message, setMessage] = useState("");
+    const [product1, setProduct1] = useState(null);
+    const [product2, setProduct2] = useState(null);
     const classes = useStyles();
 
     const fetchProductsFromApi = () => {
@@ -58,38 +75,44 @@ export default function TitlebarGridList({ hostUrl }) {
             };
             setProductResult(null);
             setIsSearchClicked(true);
-            fetch(`${hostUrl}/api/products?q=${keyword}`, requestOptions)
-                .then(response => {
-                    const json = response.json();
-                    return { json: json, status: response.status };
-                })
-                .then(result => {
-                    setIsSearchClicked(false);
-                    setKeyword("");
-                    if (result.status === 200) {
-                        return result.json;
-                    } else if (result.status === 404) {
-                        setMessage(`No products found for your search query: ${keyword}`);
+            if (isTest) {
+                setIsSearchClicked(false);
+                setKeyword("");
+                setProductResult(testPayload);
+            } else {
+                fetch(`${hostUrl}/api/products?q=${keyword}`, requestOptions)
+                    .then(response => {
+                        const json = response.json();
+                        return { json: json, status: response.status };
+                    })
+                    .then(result => {
+                        setIsSearchClicked(false);
+                        setKeyword("");
+                        if (result.status === 200) {
+                            return result.json;
+                        } else if (result.status === 404) {
+                            setMessage(`No products found for your search query: ${keyword}`);
+                            setOpen(true);
+                        } else {
+                            setMessage("An error occurred while processing your request.");
+                            setOpen(true);
+                        }
+                    })
+                    .then(result => {
+                        if (result) {
+                            setProductResult(result);
+                        }
+                    })
+                    .catch(error => {
+                        setIsSearchClicked(false);
+                        if (error.toString().includes("NetworkError")) {
+                            setMessage("Error connecting to the back-end server or not connected to the internet");
+                        } else {
+                            setMessage(`Unexpected error occurred: ${error}`);
+                        }
                         setOpen(true);
-                    } else {
-                        setMessage("An error occurred while processing your request.");
-                        setOpen(true);
-                    }
-                })
-                .then(result => {
-                    if (result) {
-                        setProductResult(result);
-                    }
-                })
-                .catch(error => {
-                    setIsSearchClicked(false);
-                    if (error.toString().includes("NetworkError")) {
-                        setMessage("Error connecting to the back-end server or not connected to the internet");
-                    } else {
-                        setMessage(`Unexpected error occurred: ${error}`);
-                    }
-                    setOpen(true);
-                });
+                    });
+            }
         }
     };
 
@@ -107,11 +130,31 @@ export default function TitlebarGridList({ hostUrl }) {
         {(productResult !== null) && <Typography component="p">Total results: {productResult.totalResults}</Typography>}
     </div>);
 
+    const differenceComponent = () => ((product1 && product2) && <div className={classes.difference}>
+        {(productResult !== null) && <Typography component="p">Price difference: {(product1.price > product2.price) ? product1.price - product2.price : product2.price - product1.price}</Typography>}
+    </div>);
+
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
         }
         setOpen(false);
+    };
+
+    const handleChange = (event, product) => {
+        if (event.target.checked) {
+            setProduct1(product);
+            if (!product2 && product !== product1) {
+                setProduct2(product);
+            }
+        } else {
+            if (product1) {
+                setProduct1(null);
+            }
+            if (product2) {
+                setProduct2(null);
+            }
+        }
     };
 
     return (
@@ -127,29 +170,35 @@ export default function TitlebarGridList({ hostUrl }) {
                 {!isSearchClicked && <Button variant="contained" color="primary" aria-label="Search" onClick={handleButtonClick}>Search</Button>}
             </div>
             {resultsComponent()}
+            {differenceComponent()}
             <div className={classes.root}>
                 <GridList cols={4} component="ul">
-                    {(productResult !== null) && productResult.products.map((product, index) => (
-                        <GridListTile key={`${product.brand}-${index}`}>
-                            <Link color="inherit" href={product.sourceUrl} target="_blank"><img src={product.imageUrl} alt={product.name} width="45%" height="90%" />
-                                <GridListTileBar
-                                    title={product.name}
-                                    subtitle={
-                                        <React.Fragment>
-                                            <div>Price: R{product.price}</div>
-                                            <div>Source: {product.source}</div>
-                                        </React.Fragment>
-                                    } />
-                            </Link>
-                        </GridListTile>
-                    ))}
+                    {(productResult !== null) && productResult.products.sort((a, b) => a.price - b.price)
+                        .map((product, index) => (
+                            <GridListTile key={`${product.brand}-${index}`}>
+                                <Link color="inherit" href={product.sourceUrl} target="_blank">
+                                    <img src={product.imageUrl} alt={product.name} width="45%" height="90%" />
+                                    <GridListTileBar
+                                        title={product.name}
+                                        subtitle={
+                                            <React.Fragment>
+                                                <div>Price: R{product.price}</div>
+                                                <div>Source: {product.source}</div>
+                                            </React.Fragment>
+                                        } />
+                                </Link>
+                                <Checkbox
+                                    color="primary"
+                                    checked={(product1 === product) ? true : (product2 === product) ? true : false}
+                                    inputProps={{ 'aria-label': product.name }}
+                                    onChange={(event) => handleChange(event, product)}
+                                />
+                            </GridListTile>
+                        ))}
                 </GridList>
             </div>
             {resultsComponent()}
-            {(productResult !== null) &&
-                <div className={classes.compareButton}>
-                    <Fab variant="extended" color="primary" aria-label="Compare" style={{position:'fixed'}}>Compare</Fab>
-                </div>}
+            {differenceComponent()}
             <Snackbar anchorOrigin={{
                 vertical: 'bottom',
                 horizontal: 'center',
