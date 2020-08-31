@@ -48,7 +48,6 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'center',
         position: 'sticky',
-        fontSize: '40px',
         top: 10,
         zIndex: 1,
         backgroundColor: theme.palette.primary.main,
@@ -137,7 +136,7 @@ export default function TitlebarGridList({ hostUrl, isTest }) {
     </div>);
 
     const differenceComponent = () => ((product1 && product2) && <div className={classes.difference}>
-        {(productResult !== null) && <Typography component="p" color="textPrimary">Price difference: R{(product1.price > product2.price) ? product1.price - product2.price : product2.price - product1.price}</Typography>}
+        {(productResult !== null) && <Typography component="p" color="inherit">Price difference: R{(product1.price > product2.price) ? product1.price - product2.price : product2.price - product1.price}</Typography>}
     </div>);
 
     const handleClose = (event, reason) => {
@@ -150,16 +149,12 @@ export default function TitlebarGridList({ hostUrl, isTest }) {
     const handleChange = (event, product) => {
         if (event.target.checked) {
             setProduct1(product);
-            if (!product2 && product !== product1) {
+            if (product2 === null && product !== product1) {
                 setProduct2(product);
             }
         } else {
-            if (product1) {
-                setProduct1(null);
-            }
-            if (product2) {
-                setProduct2(null);
-            }
+            setProduct1(null);
+            setProduct2(null);
         }
     };
 
