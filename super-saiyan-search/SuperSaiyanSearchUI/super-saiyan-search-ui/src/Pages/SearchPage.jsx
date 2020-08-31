@@ -47,10 +47,12 @@ const useStyles = makeStyles((theme) => ({
     difference: {
         display: 'flex',
         justifyContent: 'center',
-        paddingTop: '8px',
-        paddingBottom: '8px',
         position: 'sticky',
-        top: '0',
+        fontSize: '40px',
+        top: 10,
+        zIndex: 1,
+        backgroundColor: theme.palette.primary.main,
+        color: '#fff',
     },
     progress: {
         display: 'flex',
@@ -77,6 +79,8 @@ export default function TitlebarGridList({ hostUrl, isTest }) {
             };
             setProductResult(null);
             setIsSearchClicked(true);
+            setProduct1(null);
+            setProduct2(null);
             if (isTest) {
                 setIsSearchClicked(false);
                 setKeyword("");
@@ -133,7 +137,7 @@ export default function TitlebarGridList({ hostUrl, isTest }) {
     </div>);
 
     const differenceComponent = () => ((product1 && product2) && <div className={classes.difference}>
-        {(productResult !== null) && <Typography component="p">Price difference: {(product1.price > product2.price) ? product1.price - product2.price : product2.price - product1.price}</Typography>}
+        {(productResult !== null) && <Typography component="p" color="textPrimary">Price difference: R{(product1.price > product2.price) ? product1.price - product2.price : product2.price - product1.price}</Typography>}
     </div>);
 
     const handleClose = (event, reason) => {
