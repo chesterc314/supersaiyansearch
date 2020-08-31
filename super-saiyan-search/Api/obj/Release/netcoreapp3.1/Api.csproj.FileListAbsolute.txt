@@ -1,0 +1,14 @@
+E:\Development\SuperSaiyanSearch\super-saiyan-search\Api\bin\Release\netcoreapp3.1\Api.deps.json
+E:\Development\SuperSaiyanSearch\super-saiyan-search\Api\bin\Release\netcoreapp3.1\Api.dll
+E:\Development\SuperSaiyanSearch\super-saiyan-search\Api\bin\Release\netcoreapp3.1\Api.pdb
+E:\Development\SuperSaiyanSearch\super-saiyan-search\Api\bin\Release\netcoreapp3.1\Domain.dll
+E:\Development\SuperSaiyanSearch\super-saiyan-search\Api\bin\Release\netcoreapp3.1\Integration.dll
+E:\Development\SuperSaiyanSearch\super-saiyan-search\Api\bin\Release\netcoreapp3.1\Domain.pdb
+E:\Development\SuperSaiyanSearch\super-saiyan-search\Api\bin\Release\netcoreapp3.1\Integration.pdb
+E:\Development\SuperSaiyanSearch\super-saiyan-search\Api\obj\Release\netcoreapp3.1\Api.csprojAssemblyReference.cache
+E:\Development\SuperSaiyanSearch\super-saiyan-search\Api\obj\Release\netcoreapp3.1\Api.AssemblyInfoInputs.cache
+E:\Development\SuperSaiyanSearch\super-saiyan-search\Api\obj\Release\netcoreapp3.1\Api.AssemblyInfo.cs
+E:\Development\SuperSaiyanSearch\super-saiyan-search\Api\obj\Release\netcoreapp3.1\Api.csproj.CoreCompileInputs.cache
+E:\Development\SuperSaiyanSearch\super-saiyan-search\Api\obj\Release\netcoreapp3.1\Api.csproj.CopyComplete
+E:\Development\SuperSaiyanSearch\super-saiyan-search\Api\obj\Release\netcoreapp3.1\Api.dll
+E:\Development\SuperSaiyanSearch\super-saiyan-search\Api\obj\Release\netcoreapp3.1\Api.pdb

@@ -14,14 +14,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@master
+    - uses: .\super-saiyan-search\SuperSaiyanSearchApi\
 
     - name: Set up .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '3.1.102'
-
-    - name: Navigate to API folder
-      run: cd .\super-saiyan-search\SuperSaiyanSearchApi\  
+        dotnet-version: '3.1.102'  
 
     - name: Build with dotnet
       run: dotnet build --configuration Release

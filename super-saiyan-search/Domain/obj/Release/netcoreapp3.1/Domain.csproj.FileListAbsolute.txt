@@ -1,0 +1,9 @@
+E:\Development\SuperSaiyanSearch\super-saiyan-search\Domain\bin\Release\netcoreapp3.1\Domain.deps.json
+E:\Development\SuperSaiyanSearch\super-saiyan-search\Domain\bin\Release\netcoreapp3.1\Domain.dll
+E:\Development\SuperSaiyanSearch\super-saiyan-search\Domain\bin\Release\netcoreapp3.1\Domain.pdb
+E:\Development\SuperSaiyanSearch\super-saiyan-search\Domain\obj\Release\netcoreapp3.1\Domain.csprojAssemblyReference.cache
+E:\Development\SuperSaiyanSearch\super-saiyan-search\Domain\obj\Release\netcoreapp3.1\Domain.AssemblyInfoInputs.cache
+E:\Development\SuperSaiyanSearch\super-saiyan-search\Domain\obj\Release\netcoreapp3.1\Domain.AssemblyInfo.cs
+E:\Development\SuperSaiyanSearch\super-saiyan-search\Domain\obj\Release\netcoreapp3.1\Domain.csproj.CoreCompileInputs.cache
+E:\Development\SuperSaiyanSearch\super-saiyan-search\Domain\obj\Release\netcoreapp3.1\Domain.dll
+E:\Development\SuperSaiyanSearch\super-saiyan-search\Domain\obj\Release\netcoreapp3.1\Domain.pdb
