@@ -21,11 +21,11 @@ jobs:
         dotnet-version: '3.1.102'  
 
     - name: Build with dotnet
-      uses: .\super-saiyan-search\SuperSaiyanSearchApi\
+      working-directory: .\super-saiyan-search\SuperSaiyanSearchApi\
       run: dotnet build --configuration Release
 
     - name: dotnet publish
-      uses: .\super-saiyan-search\SuperSaiyanSearchApi\
+      working-directory: .\super-saiyan-search\SuperSaiyanSearchApi\
       run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
     - name: Deploy to Azure Web App
