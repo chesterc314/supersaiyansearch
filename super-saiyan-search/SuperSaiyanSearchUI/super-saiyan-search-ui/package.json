@@ -2,21 +2,25 @@
   "name": "super-saiyan-search-ui",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://chesterc314.github.io/SuperSaiyanSearch",
   "dependencies": {
+    "@material-ui/core": "latest",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "clsx": "latest",
+    "gh-pages": "^3.1.0",
     "react": "latest",
     "react-dom": "latest",
-    "react-scripts": "latest",
-    "@material-ui/core": "latest",
-    "clsx": "latest"
+    "react-scripts": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -b master -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
