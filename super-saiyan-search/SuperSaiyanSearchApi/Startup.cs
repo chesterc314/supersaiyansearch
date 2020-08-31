@@ -10,8 +10,6 @@ using SuperSaiyanSearch.Integration.Interfaces;
 using SuperSaiyanSearch.Integration;
 using SuperSaiyanSearch.Api;
 using SuperSaiyanSearch.Api.Interfaces;
-using Microsoft.AspNetCore.Cors.Infrastructure;
-using Microsoft.AspNetCore.Mvc;
 
 namespace SuperSaiyanSearchApi
 {
@@ -37,7 +35,7 @@ namespace SuperSaiyanSearchApi
             services.AddMemoryCache();
             services.AddCors(c =>  
             {  
-                c.AddPolicy("AllowOrigin", options => options.WithOrigins("http://localhost:3000"));  
+                c.AddPolicy("AllowOrigin", options => options.WithOrigins("https://chesterc314.github.io/supersaiyansearch"));  
             }); 
             services.AddControllers().AddNewtonsoftJson(options => options.UseMemberCasing());
         }
@@ -54,7 +52,7 @@ namespace SuperSaiyanSearchApi
 
             app.UseRouting();
 
-            app.UseCors(options => options.WithOrigins("http://localhost:3000"));
+            app.UseCors(options => options.WithOrigins("https://chesterc314.github.io/supersaiyansearch"));
 
             app.UseAuthorization();
 
