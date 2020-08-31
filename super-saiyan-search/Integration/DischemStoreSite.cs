@@ -40,12 +40,13 @@ namespace SuperSaiyanSearch.Integration
                     .CssSelect(".product-item-info > .product-item-details > .price-box-wrapper-listing > .price-box > .price-box-inner-wrapper > .price-container > .price-wrapper");
                     var specialElement = element
                     .CssSelect(".product-item-info > .product-item-details > .price-box-wrapper-listing > .price-box > .price-box-inner-wrapper > .special-price > .price-container > .price-wrapper");
-                    var priceValue = (priceElement.FirstOrDefault() ?? specialElement.First()).Attributes.AttributesWithName("data-price-amount").First().Value;
+                    var priceVal = (priceElement.FirstOrDefault() ?? specialElement.FirstOrDefault());
+                    var priceValue = (priceVal != null) ? priceVal.Attributes.AttributesWithName("data-price-amount").First().Value : "0";
                     var price = Convert.ToDecimal(priceValue, cultures);
 
                     resultProducts.Add(new Product
                     {
-                        Name = HttpUtility.HtmlDecode(name),
+                        Name = $"{HttpUtility.HtmlDecode(name)}{(priceVal != null ? "" : "Out of stock")}",
                         Description = HttpUtility.HtmlDecode(name),
                         Price = price,
                         Units = 1,
