@@ -35,7 +35,7 @@ namespace SuperSaiyanSearchApi
             services.AddMemoryCache();
             services.AddCors(c =>  
             {  
-                c.AddPolicy("AllowOrigin", options => options.WithOrigins("https://chesterc314.github.io/supersaiyansearch"));  
+                c.AddPolicy("AllowOrigin", options => options.WithOrigins("https://chesterc314.github.io"));  
             }); 
             services.AddControllers().AddNewtonsoftJson(options => options.UseMemberCasing());
         }
@@ -52,7 +52,7 @@ namespace SuperSaiyanSearchApi
 
             app.UseRouting();
 
-            app.UseCors(options => options.WithOrigins("https://chesterc314.github.io/supersaiyansearch"));
+            app.UseCors(options => options.WithOrigins("https://chesterc314.github.io"));
 
             app.UseAuthorization();
 
