@@ -1,0 +1,14 @@
+super-saiyan-search/SuperSaiyanSearchApi/bin/
+super-saiyan-search/SuperSaiyanSearchApi/obj/
+super-saiyan-search/Api/bin/
+super-saiyan-search/Api/obj/
+super-saiyan-search/Api.Tests/bin/
+super-saiyan-search/Api.Tests/obj/
+super-saiyan-search/Domain/bin/
+super-saiyan-search/Domain/obj/
+super-saiyan-search/Domain.Tests/bin/
+super-saiyan-search/Domain.Tests/obj/
+super-saiyan-search/Integration/bin/
+super-saiyan-search/Integration/obj/
+super-saiyan-search/Integration.Tests/bin/
+super-saiyan-search/Integration.Tests/obj/
