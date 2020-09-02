@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/supersaiyansearch/static/js/main.1a4e2ef9.chunk.js",
-    "main.js.map": "/supersaiyansearch/static/js/main.1a4e2ef9.chunk.js.map",
+    "main.js": "/supersaiyansearch/static/js/main.9dc01fe8.chunk.js",
+    "main.js.map": "/supersaiyansearch/static/js/main.9dc01fe8.chunk.js.map",
     "runtime-main.js": "/supersaiyansearch/static/js/runtime-main.e05aeadb.js",
     "runtime-main.js.map": "/supersaiyansearch/static/js/runtime-main.e05aeadb.js.map",
     "static/js/2.7e284477.chunk.js": "/supersaiyansearch/static/js/2.7e284477.chunk.js",
     "static/js/2.7e284477.chunk.js.map": "/supersaiyansearch/static/js/2.7e284477.chunk.js.map",
     "index.html": "/supersaiyansearch/index.html",
-    "precache-manifest.fdc0ca1e1551f84beba1f5390aae1938.js": "/supersaiyansearch/precache-manifest.fdc0ca1e1551f84beba1f5390aae1938.js",
+    "precache-manifest.544d7991072f70e0e8e7dda0d7e85d4a.js": "/supersaiyansearch/precache-manifest.544d7991072f70e0e8e7dda0d7e85d4a.js",
     "service-worker.js": "/supersaiyansearch/service-worker.js",
     "static/js/2.7e284477.chunk.js.LICENSE.txt": "/supersaiyansearch/static/js/2.7e284477.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.e05aeadb.js",
     "static/js/2.7e284477.chunk.js",
-    "static/js/main.1a4e2ef9.chunk.js"
+    "static/js/main.9dc01fe8.chunk.js"
   ]
 }
