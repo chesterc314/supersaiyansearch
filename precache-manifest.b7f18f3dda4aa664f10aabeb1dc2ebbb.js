@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "03b6f305893418769729ade7e9cc39cf",
+    "revision": "42de482573f0438374ea1fae7e0e6841",
     "url": "/supersaiyansearch/index.html"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/supersaiyansearch/static/js/2.7e284477.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "1be8d60f67228c1a81c8",
-    "url": "/supersaiyansearch/static/js/main.22ccf4c7.chunk.js"
+    "revision": "9a90be3ad3d751b56198",
+    "url": "/supersaiyansearch/static/js/main.cebae0b5.chunk.js"
   },
   {
     "revision": "3b56442b61d9147e85da",
