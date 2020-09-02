@@ -33,11 +33,12 @@ namespace SuperSaiyanSearchApi
             services.AddScoped<IProductApi, ProductApi>();
             services.AddResponseCompression(configureOptions => configureOptions.EnableForHttps = true);
             services.AddMemoryCache();
-            services.AddCors(c =>  
-            {  
-                c.AddPolicy("AllowOrigin", options => options.WithOrigins("https://chesterc314.github.io"));  
-            }); 
-            services.AddControllers().AddNewtonsoftJson(options => options.UseMemberCasing());
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.WithOrigins("https://chesterc314.github.io"));
+            });
+            services.AddControllers().AddNewtonsoftJson(options => options.UseMemberCasing())
+            .AddJsonOptions(ops => ops.JsonSerializerOptions.IgnoreNullValues = true);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
