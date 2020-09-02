@@ -24,6 +24,10 @@ jobs:
       working-directory: .\super-saiyan-search\SuperSaiyanSearchApi\
       run: dotnet build --configuration Release
 
+    - name: Run tests with dotnet
+      working-directory: .\super-saiyan-search\
+      run: dotnet test
+
     - name: dotnet publish
       working-directory: .\super-saiyan-search\SuperSaiyanSearchApi\
       run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
