@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using SuperSaiyanSearch.Domain;
@@ -22,10 +23,25 @@ namespace SuperSaiyanSearch.Integration
             headers.Add(KeyValuePair.Create("Host", host));
             var response = _httpClient.Get($"https://{host}/server/searchCategory?pageURL=%2Fcat&Ntt={keyword}&Dy=1", headers);
             var parent = JObject.Parse(response.Content);
-            var contents = parent.Value<JArray>("contents");
-            var mainContent = contents[0].Value<JArray>("mainContent");
-            var contents2 = mainContent[0].Value<JArray>("contents");
-            var records = contents2[0].Value<JArray>("records");
+            var records = new JArray();
+            try
+            {
+                var contents = parent.Value<JArray>("contents");
+                var mainContent = contents[0].Value<JArray>("mainContent");
+                var contents2 = mainContent[0].Value<JArray>("contents");
+                records = contents2[0].Value<JArray>("records");
+            }
+            catch (InvalidCastException ex)
+            {
+                if (ex.Message.Equals("Cannot cast Newtonsoft.Json.Linq.JObject to Newtonsoft.Json.Linq.JToken."))
+                {
+                    records = new JArray();
+                }
+                else
+                {
+                    throw ex;
+                }
+            }
 
             var resultProducts = new List<Product>();
             if (records.Count > 0)
