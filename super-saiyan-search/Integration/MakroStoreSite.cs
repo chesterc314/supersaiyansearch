@@ -7,6 +7,7 @@ using SuperSaiyanSearch.Domain;
 using SuperSaiyanSearch.Domain.Interfaces;
 using SuperSaiyanSearch.Integration.Interfaces;
 using System.Web;
+using System.Threading.Tasks;
 
 namespace SuperSaiyanSearch.Integration
 {
@@ -27,14 +28,13 @@ namespace SuperSaiyanSearch.Integration
             var resultProducts = new List<Product>();
             if (elements.Any())
             {
-                foreach (var element in elements)
+                Parallel.ForEach(elements, element =>
                 {
                     var productLinkElementAttributes = element.CssSelect(".product-tile-inner > .product-tile-inner__img").First().Attributes;
                     var sourceUrl = $"{url}{productLinkElementAttributes.AttributesWithName("href").First().Value}";
                     var name = productLinkElementAttributes.AttributesWithName("title").First().Value;
                     var imageElementAttributes = element.CssSelect(".product-tile-inner > .product-tile-inner__img > img").First().Attributes;
                     var imageUrl = imageElementAttributes.AttributesWithName("data-src").First().Value;
-                    var brand = name.Split(" ")[0];
                     var cultures = new CultureInfo("en-US");
                     var priceValue = element.CssSelect(".product-tile-inner > .price")
                     .First()
@@ -52,12 +52,12 @@ namespace SuperSaiyanSearch.Integration
                         Description = HttpUtility.HtmlDecode(name),
                         Price = price,
                         Units = 1,
-                        Brand = brand,
+                        Brand = null,
                         Source = StoreSiteName.Makro.ToString(),
                         SourceUrl = sourceUrl,
                         ImageUrl = imageUrl
                     });
-                }
+                });
             }
 
             return resultProducts;

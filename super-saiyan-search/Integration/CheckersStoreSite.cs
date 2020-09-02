@@ -7,6 +7,7 @@ using SuperSaiyanSearch.Domain;
 using SuperSaiyanSearch.Domain.Interfaces;
 using SuperSaiyanSearch.Integration.Interfaces;
 using System.Web;
+using System.Threading.Tasks;
 
 namespace SuperSaiyanSearch.Integration
 {
@@ -27,14 +28,13 @@ namespace SuperSaiyanSearch.Integration
             var resultProducts = new List<Product>();
             if (elements.Any())
             {
-                foreach (var element in elements)
+                Parallel.ForEach(elements, element =>
                 {
                     var productLinkElementAttributes = element.CssSelect(".item-product > .item-product__content > .item-product__image > .product-listening-click").First().Attributes;
                     var sourceUrl = $"{url}{productLinkElementAttributes.AttributesWithName("href").First().Value}";
                     var name = productLinkElementAttributes.AttributesWithName("title").First().Value;
                     var imageElementAttributes = element.CssSelect(".item-product > .item-product__content > .item-product__image > .product-listening-click > img").First().Attributes;
                     var imageUrl = $"{url}{imageElementAttributes.AttributesWithName("data-src").First().Value}";
-                    var brand = name.Split(" ")[0];
                     var cultures = new CultureInfo("en-US");
                     var priceValue = element.CssSelect(".item-product > .item-product__content > .item-product__caption > .item-product__details > .js-item-product-price > .special-price > .special-price__price > .now")
                     .First().InnerText.Replace("R", "").Trim();
@@ -43,15 +43,15 @@ namespace SuperSaiyanSearch.Integration
                     resultProducts.Add(new Product
                     {
                         Name = HttpUtility.HtmlDecode(name),
-                        Description = HttpUtility.HtmlDecode(name),
+                        Description = name,
                         Price = price,
                         Units = 1,
-                        Brand = brand,
+                        Brand = null,
                         Source = StoreSiteName.Checkers.ToString(),
                         SourceUrl = sourceUrl,
                         ImageUrl = imageUrl
                     });
-                }
+                });
             }
             return resultProducts;
         }

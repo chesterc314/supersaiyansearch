@@ -7,6 +7,7 @@ using SuperSaiyanSearch.Domain;
 using SuperSaiyanSearch.Domain.Interfaces;
 using SuperSaiyanSearch.Integration.Interfaces;
 using System.Web;
+using System.Threading.Tasks;
 
 namespace SuperSaiyanSearch.Integration
 {
@@ -25,14 +26,13 @@ namespace SuperSaiyanSearch.Integration
             var resultProducts = new List<Product>();
             if (elements.Any())
             {
-                foreach (var element in elements)
+                Parallel.ForEach(elements, element =>
                 {
                     var productLinkElementAttributes = element.CssSelect(".grid-product-image > .product-image").First().Attributes;
                     var sourceUrl = productLinkElementAttributes.AttributesWithName("href").First().Value;
                     var name = productLinkElementAttributes.AttributesWithName("title").First().Value;
                     var imageElementAttributes = element.CssSelect(".grid-product-image > .product-image > .grid-image-wrapper > img").First().Attributes;
                     var imageUrl = imageElementAttributes.AttributesWithName("data-src").First().Value;
-                    var brand = name.Split(" ")[0];
                     var cultures = new CultureInfo("en-US");
                     var priceValue = element.CssSelect(".grid-product-price > .price").First().InnerText.Replace("\n", "").Replace("R", "");
                     var price = Convert.ToDecimal(priceValue, cultures);
@@ -40,15 +40,15 @@ namespace SuperSaiyanSearch.Integration
                     resultProducts.Add(new Product
                     {
                         Name = HttpUtility.HtmlDecode(name),
-                        Description = HttpUtility.HtmlDecode(name),
+                        Description = name,
                         Price = price,
                         Units = 1,
-                        Brand = brand,
+                        Brand = null,
                         Source = StoreSiteName.IncredibleConnection.ToString(),
                         SourceUrl = sourceUrl,
                         ImageUrl = imageUrl
                     });
-                }
+                });
             }
 
             return resultProducts;

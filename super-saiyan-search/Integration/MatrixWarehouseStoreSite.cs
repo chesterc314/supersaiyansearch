@@ -7,6 +7,7 @@ using SuperSaiyanSearch.Domain;
 using SuperSaiyanSearch.Domain.Interfaces;
 using SuperSaiyanSearch.Integration.Interfaces;
 using System.Web;
+using System.Threading.Tasks;
 
 namespace SuperSaiyanSearch.Integration
 {
@@ -25,7 +26,7 @@ namespace SuperSaiyanSearch.Integration
             var resultProducts = new List<Product>();
             if (elements.Any())
             {
-                foreach (var element in elements)
+                Parallel.ForEach(elements, element =>
                 {
                     var productLinkElement = element.CssSelect(".product-inner > .woocommerce-LoopProduct-link.woocommerce-loop-product__link").FirstOrDefault();
                     if (productLinkElement != null)
@@ -35,7 +36,6 @@ namespace SuperSaiyanSearch.Integration
                         var name = element.CssSelect(".product-inner > .woocommerce-LoopProduct-link.woocommerce-loop-product__link > .woocommerce-loop-product__title").First().InnerText;
                         var imageElementAttributes = element.CssSelect(".product-inner > .woocommerce-LoopProduct-link.woocommerce-loop-product__link > .attachment-woocommerce_thumbnail").First().Attributes;
                         var imageUrl = imageElementAttributes.AttributesWithName("src").First().Value;
-                        var brand = name.Split(" ")[0];
                         var cultures = new CultureInfo("en-US");
                         var regularPriceBox = element.CssSelect(".product-inner > .woocommerce-LoopProduct-link.woocommerce-loop-product__link > .price > .woocommerce-Price-amount.amount").FirstOrDefault();
                         var specialPriceBox = element.CssSelect(".product-inner > .woocommerce-LoopProduct-link.woocommerce-loop-product__link > .price > ins > .woocommerce-Price-amount.amount");
@@ -45,16 +45,16 @@ namespace SuperSaiyanSearch.Integration
                         resultProducts.Add(new Product
                         {
                             Name = HttpUtility.HtmlDecode(name),
-                            Description = HttpUtility.HtmlDecode(name),
+                            Description = name,
                             Price = price,
                             Units = 1,
-                            Brand = brand,
+                            Brand = null,
                             Source = StoreSiteName.MatrixWarehouse.ToString(),
                             SourceUrl = sourceUrl,
                             ImageUrl = imageUrl
                         });
                     }
-                }
+                });
             }
             return resultProducts;
         }

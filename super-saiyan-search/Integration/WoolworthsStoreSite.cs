@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using SuperSaiyanSearch.Domain;
 using SuperSaiyanSearch.Domain.Interfaces;
@@ -46,15 +47,13 @@ namespace SuperSaiyanSearch.Integration
             var resultProducts = new List<Product>();
             if (records.Count > 0)
             {
-                foreach (var result in records)
+                Parallel.ForEach(records, result =>
                 {
                     var imageUrl = result.SelectToken("attributes.p_imageReference").Value<string>();
                     var sourceUrl = result.SelectToken("attributes.detailPageURL").Value<string>();
                     var displayName = result.SelectToken("attributes.p_displayName");
                     var title = result.SelectToken("attributes.p_title");
                     var name = (displayName ?? title).Value<string>();
-                    var brands = result.SelectToken("attributes.Brands");
-                    var brand = brands != null ? brands.Value<string>() : null;
                     var startingPrice = result.SelectToken("startingPrice.p_pl00");
                     var price = startingPrice != null ? startingPrice.Value<decimal>() : 0;
 
@@ -63,13 +62,13 @@ namespace SuperSaiyanSearch.Integration
                         Name = name,
                         Description = name,
                         Price = price,
-                        Brand = brand,
+                        Brand = null,
                         Source = StoreSiteName.Woolworths.ToString(),
                         SourceUrl = $"https://{host}{sourceUrl}",
                         ImageUrl = $"https://{host}{imageUrl}",
                         Units = 1
                     });
-                }
+                });
             }
 
             return resultProducts;

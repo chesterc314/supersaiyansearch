@@ -31,11 +31,9 @@ namespace SuperSaiyanSearch.Integration
                 {
                     var productLinkElementAttributes = element.CssSelect(".productCarouselItem > .product-card-grid > a").First().Attributes;
                     var sourceUrl = $"{url}{productLinkElementAttributes.AttributesWithName("href").First().Value}";
-                
                     var imageElementAttributes = element.CssSelect(".productCarouselItem > .product-card-grid > a > .thumb > img").First().Attributes;
                     var imageUrl = imageElementAttributes.AttributesWithName("src").First().Value;
                     var name = imageElementAttributes.AttributesWithName("title").First().Value;
-                    var brand = name.Split(" ")[0];
                     var cultures = new CultureInfo("en-US");
                     var priceValue = element.CssSelect(".productCarouselItem > .product-card-grid > a > .product-price > .item-price > .currentPrice")
                     .First().InnerHtml.Replace("R", "").Replace("<span>", ".").Replace("</span>", "").Trim();
@@ -44,10 +42,10 @@ namespace SuperSaiyanSearch.Integration
                     resultProducts.Add(new Product
                     {
                         Name = HttpUtility.HtmlDecode(name),
-                        Description = HttpUtility.HtmlDecode(name),
+                        Description = name,
                         Price = price,
                         Units = 1,
-                        Brand = brand,
+                        Brand = null,
                         Source = StoreSiteName.PicknPay.ToString(),
                         SourceUrl = sourceUrl,
                         ImageUrl = imageUrl

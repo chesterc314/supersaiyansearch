@@ -7,6 +7,7 @@ using System.Globalization;
 using SuperSaiyanSearch.Integration.Interfaces;
 using ScrapySharp.Extensions;
 using System.Web;
+using System.Threading.Tasks;
 
 namespace SuperSaiyanSearch.Integration
 {
@@ -25,29 +26,28 @@ namespace SuperSaiyanSearch.Integration
             var resultProducts = new List<Product>();
             if (elements.Any())
             {
-                foreach (var element in elements)
+                Parallel.ForEach(elements, element =>
                 {
                     var productLinkElementAttributes = element.CssSelect(".thumb.gtmProductLink").First().Attributes;
                     var sourceUrl = $"{url}{productLinkElementAttributes.AttributesWithName("href").First().Value}";
                     var name = productLinkElementAttributes.AttributesWithName("title").First().Value;
                     var imageElementAttributes = element.CssSelect(".productPrimaryImage > img").First().Attributes;
                     var imageUrl = $"{url}{imageElementAttributes.AttributesWithName("src").First().Value}";
-                    var brand = element.CssSelect(".details > .product-brand > .brand.gtmProductLink").First().InnerText.Trim('\n', '\t');
                     var cultures = new CultureInfo("en-US");
                     var price = Convert.ToDecimal(element.CssSelect(".details > .price > .finalPrice").First().InnerText.Trim('R'), cultures);
 
                     resultProducts.Add(new Product
                     {
                         Name = HttpUtility.HtmlDecode(name),
-                        Description = HttpUtility.HtmlDecode(name),
+                        Description = name,
                         Price = price,
                         Units = 1,
-                        Brand = brand,
+                        Brand = null,
                         Source = StoreSiteName.Game.ToString(),
                         SourceUrl = sourceUrl,
                         ImageUrl = imageUrl
                     });
-                }
+                });
             }
 
             return resultProducts;

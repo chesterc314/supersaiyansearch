@@ -4,6 +4,7 @@ using SuperSaiyanSearch.Domain;
 using SuperSaiyanSearch.Domain.Interfaces;
 using SuperSaiyanSearch.Integration.Interfaces;
 using System.Web;
+using System.Threading.Tasks;
 
 namespace SuperSaiyanSearch.Integration
 {
@@ -26,7 +27,7 @@ namespace SuperSaiyanSearch.Integration
             var resultProducts = new List<Product>();
             if (results.Count > 0)
             {
-                foreach (var result in results)
+                Parallel.ForEach(results, result =>
                 {
                     var slug = result.SelectToken("product_views.core.slug").Value<string>();
                     var innerProducts = result.SelectToken("product_views.enhanced_ecommerce_click.ecommerce.click.products").Value<JArray>();
@@ -34,22 +35,20 @@ namespace SuperSaiyanSearch.Integration
                     var imageUrl = images.First.Value<string>();
                     var id = innerProducts.First.SelectToken("id").Value<string>();
                     var name = innerProducts.First.SelectToken("name").Value<string>();
-                    var brand = innerProducts.First.SelectToken("brand").Value<string>();
                     var price = innerProducts.First.SelectToken("price").Value<decimal>();
-                    var quantity = innerProducts.First.SelectToken("quantity").Value<int>();
                     var imageUrlParts = imageUrl.Split("{size}");
                     resultProducts.Add(new Product
                     {
                         Name = name,
                         Description = name,
                         Price = price,
-                        Brand = brand,
+                        Brand = null,
                         Source = StoreSiteName.Takealot.ToString(),
                         SourceUrl = $"https://www.takealot.com/{slug}/{id}",
                         ImageUrl = $"{imageUrlParts[0]}fb{imageUrlParts[1]}",
-                        Units = quantity
+                        Units = 1
                     });
-                }
+                });
             }
 
             return resultProducts;

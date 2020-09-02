@@ -161,7 +161,7 @@ export default function TitlebarGridList({ hostUrl, isTest }) {
     return (
         <React.Fragment>
             <div className={classes.logo}>
-                <img src="logo.png" width='15%' height='15%' alt="Super Saiyan Search Logo" />
+                <img src="logo.png" width='25%' height='25%' alt="Super Saiyan Search Logo" />
             </div>
             <div className={classes.search}>
                 {!isSearchClicked && <TextField id="search" label="Keyword" aria-label="Keyword" value={keyword !== null ? keyword : ""} onChange={e => setKeyword(e.target.value)} onKeyDown={handleKeyDown} fullWidth required />}
@@ -173,12 +173,12 @@ export default function TitlebarGridList({ hostUrl, isTest }) {
             {resultsComponent()}
             {differenceComponent()}
             <div className={classes.root}>
-                <GridList component="ul">
+                <GridList cols={3} component="ul">
                     {(productResult !== null) && productResult.products.sort((a, b) => a.price - b.price)
                         .map((product, index) => (
                             <GridListTile key={`${product.source}-${index}`}>
                                 <Link color="inherit" href={product.sourceUrl} target="_blank">
-                                    <img src={product.imageUrl} alt={product.name} width="50%" height="50%" />
+                                    <img src={product.imageUrl} alt={product.name} width="55%" height="100%" />
                                     <GridListTileBar
                                         title={product.name}
                                         subtitle={

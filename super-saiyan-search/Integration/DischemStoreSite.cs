@@ -7,6 +7,7 @@ using SuperSaiyanSearch.Domain;
 using SuperSaiyanSearch.Domain.Interfaces;
 using SuperSaiyanSearch.Integration.Interfaces;
 using System.Web;
+using System.Threading.Tasks;
 
 namespace SuperSaiyanSearch.Integration
 {
@@ -27,14 +28,13 @@ namespace SuperSaiyanSearch.Integration
             var resultProducts = new List<Product>();
             if (elements.Any())
             {
-                foreach (var element in elements)
+                Parallel.ForEach(elements, element =>
                 {
                     var productLinkElementAttributes = element.CssSelect(".product-item-info > .image > .product-item-photo").First().Attributes;
                     var sourceUrl = productLinkElementAttributes.AttributesWithName("href").First().Value;
                     var name = element.CssSelect(".product-item-info > .product-item-details > .product-item-name > .product-item-link").First().InnerText;
                     var imageElementAttributes = element.CssSelect(".product-item-info > .image > .product-item-photo > .product-image-container > .product-image-wrapper > .product-image-photo").First().Attributes;
                     var imageUrl = imageElementAttributes.AttributesWithName("src").First().Value;
-                    var brand = name.Split(" ")[0];
                     var cultures = new CultureInfo("en-US");
                     var priceElement = element
                     .CssSelect(".product-item-info > .product-item-details > .price-box-wrapper-listing > .price-box > .price-box-inner-wrapper > .price-container > .price-wrapper");
@@ -47,15 +47,15 @@ namespace SuperSaiyanSearch.Integration
                     resultProducts.Add(new Product
                     {
                         Name = $"{HttpUtility.HtmlDecode(name)}{(priceVal != null ? "" : "Out of stock")}",
-                        Description = HttpUtility.HtmlDecode(name),
+                        Description = name,
                         Price = price,
                         Units = 1,
-                        Brand = brand,
+                        Brand = null,
                         Source = StoreSiteName.Dischem.ToString(),
                         SourceUrl = sourceUrl,
                         ImageUrl = imageUrl
                     });
-                }
+                });
             }
             return resultProducts;
         }
