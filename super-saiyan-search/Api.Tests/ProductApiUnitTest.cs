@@ -22,10 +22,7 @@ namespace SuperSaiyanSearch.Api.Tests
                         return source.Select(p => new ProductReadDto
                         {
                             Name = p.Name,
-                            Description = p.Description,
-                            Brand = p.Brand,
                             Price = p.Price,
-                            Units = p.Units,
                             Source = p.Source,
                             SourceUrl = p.SourceUrl,
                             ImageUrl = p.ImageUrl
