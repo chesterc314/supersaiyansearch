@@ -20,9 +20,9 @@ namespace SuperSaiyanSearch.Api
             var productItems = _storeSiteAggregation
             .SearchAll(keyword)
             .Where(product => product.Name.ToLower().Contains(keyword.ToLower()));
-            var products = _mapper.Map<IEnumerable<ProductReadDto>>(productItems);
+            var products = _mapper.Map<IEnumerable<ProductReadDto>>(productItems).ToList();
             var productsReadDto = new ProductsReadDto(products);
-            productsReadDto.TotalResults = products.Count();
+            productsReadDto.TotalResults = products.Count;
             return productsReadDto;
         }
     }
