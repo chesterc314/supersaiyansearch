@@ -27,29 +27,33 @@ namespace SuperSaiyanSearch.Integration
             {
                 foreach (var element in elements)
                 {
-                    var productLinkElementAttributes = element.CssSelect(".product-inner > .woocommerce-LoopProduct-link.woocommerce-loop-product__link").First().Attributes;
-                    var sourceUrl = productLinkElementAttributes.AttributesWithName("href").First().Value;
-                    var name = element.CssSelect(".product-inner > .woocommerce-LoopProduct-link.woocommerce-loop-product__link > .woocommerce-loop-product__title").First().InnerText;
-                    var imageElementAttributes = element.CssSelect(".product-inner > .woocommerce-LoopProduct-link.woocommerce-loop-product__link > .attachment-woocommerce_thumbnail").First().Attributes;
-                    var imageUrl = imageElementAttributes.AttributesWithName("src").First().Value;
-                    var brand = name.Split(" ")[0];
-                    var cultures = new CultureInfo("en-US");
-                    var regularPriceBox = element.CssSelect(".product-inner > .woocommerce-LoopProduct-link.woocommerce-loop-product__link > .price > .woocommerce-Price-amount.amount").FirstOrDefault();
-                    var specialPriceBox = element.CssSelect(".product-inner > .woocommerce-LoopProduct-link.woocommerce-loop-product__link > .price > ins > .woocommerce-Price-amount.amount");
-                    var priceValue = (regularPriceBox ?? specialPriceBox.First()).InnerText.Replace("&#82;", "").Trim('\n').Trim('R').Trim();
-                    var price = Convert.ToDecimal(priceValue, cultures);
-
-                    resultProducts.Add(new Product
+                    var productLinkElement = element.CssSelect(".product-inner > .woocommerce-LoopProduct-link.woocommerce-loop-product__link").FirstOrDefault();
+                    if (productLinkElement != null)
                     {
-                        Name = HttpUtility.HtmlDecode(name),
-                        Description = HttpUtility.HtmlDecode(name),
-                        Price = price,
-                        Units = 1,
-                        Brand = brand,
-                        Source = StoreSiteName.MatrixWarehouse.ToString(),
-                        SourceUrl = sourceUrl,
-                        ImageUrl = imageUrl
-                    });
+                        var productLinkElementAttributes = productLinkElement.Attributes;
+                        var sourceUrl = productLinkElementAttributes.AttributesWithName("href").First().Value;
+                        var name = element.CssSelect(".product-inner > .woocommerce-LoopProduct-link.woocommerce-loop-product__link > .woocommerce-loop-product__title").First().InnerText;
+                        var imageElementAttributes = element.CssSelect(".product-inner > .woocommerce-LoopProduct-link.woocommerce-loop-product__link > .attachment-woocommerce_thumbnail").First().Attributes;
+                        var imageUrl = imageElementAttributes.AttributesWithName("src").First().Value;
+                        var brand = name.Split(" ")[0];
+                        var cultures = new CultureInfo("en-US");
+                        var regularPriceBox = element.CssSelect(".product-inner > .woocommerce-LoopProduct-link.woocommerce-loop-product__link > .price > .woocommerce-Price-amount.amount").FirstOrDefault();
+                        var specialPriceBox = element.CssSelect(".product-inner > .woocommerce-LoopProduct-link.woocommerce-loop-product__link > .price > ins > .woocommerce-Price-amount.amount");
+                        var priceValue = (regularPriceBox ?? specialPriceBox.First()).InnerText.Replace("&#82;", "").Trim('\n').Trim('R').Trim();
+                        var price = Convert.ToDecimal(priceValue, cultures);
+
+                        resultProducts.Add(new Product
+                        {
+                            Name = HttpUtility.HtmlDecode(name),
+                            Description = HttpUtility.HtmlDecode(name),
+                            Price = price,
+                            Units = 1,
+                            Brand = brand,
+                            Source = StoreSiteName.MatrixWarehouse.ToString(),
+                            SourceUrl = sourceUrl,
+                            ImageUrl = imageUrl
+                        });
+                    }
                 }
             }
             return resultProducts;

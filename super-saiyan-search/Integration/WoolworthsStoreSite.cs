@@ -53,7 +53,7 @@ namespace SuperSaiyanSearch.Integration
                     var name = result.SelectToken("attributes.p_displayName").Value<string>();
                     var brands = result.SelectToken("attributes.Brands");
                     var brand = brands != null ? brands.Value<string>() : null;
-                    var price = result.SelectToken("startingPrice.p_pl10").Value<decimal>();
+                    var price = result.SelectToken("startingPrice.p_pl00").Value<decimal>();
 
                     resultProducts.Add(new Product
                     {
