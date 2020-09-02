@@ -11,7 +11,7 @@ namespace SuperSaiyanSearch.Integration.Tests
 
         public WoolworthsStoreSiteUnitTest()
         {
-           _woolworthsStoreSite = new WoolworthsStoreSite();
+           _woolworthsStoreSite = new WoolworthsStoreSite(new HttpClient());
         }
         [Fact]
         public void GivenUrlWhenSearchingScrapThenReturnSiteContent()

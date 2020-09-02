@@ -17,7 +17,7 @@ namespace SuperSaiyanSearch.Integration
         }
         public IEnumerable<IProduct> Search(string keyword)
         {
-            var response = _httpClient.Get($"https://api.takealot.com/rest/v-1-9-1/searches/products,filters,facets,sort_options,breadcrumbs,slots_audience,context,seo?qsearch={keyword}");
+            var response = _httpClient.Get($"https://api.takealot.com/rest/v-1-9-1/searches/products,filters,facets,sort_options,breadcrumbs,slots_audience,context,seo?qsearch={keyword}", new List<KeyValuePair<string, string>>());
             var parent = JObject.Parse(response.Content);
             var sections = parent.Value<JObject>("sections");
             var products = sections.Value<JObject>("products");
@@ -40,8 +40,8 @@ namespace SuperSaiyanSearch.Integration
                     var imageUrlParts = imageUrl.Split("{size}");
                     resultProducts.Add(new Product
                     {
-                        Name = HttpUtility.HtmlDecode(name),
-                        Description = HttpUtility.HtmlDecode(name),
+                        Name = name,
+                        Description = name,
                         Price = price,
                         Brand = brand,
                         Source = StoreSiteName.Takealot.ToString(),

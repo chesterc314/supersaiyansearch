@@ -30,7 +30,8 @@ namespace SuperSaiyanSearch.Integration
                     new PicknPayStoreSite(_webScrapper),
                     new ClicksStoreSite(_webScrapper),
                     new DischemStoreSite(_webScrapper),
-                    new MatrixWarehouseStoreSite(_webScrapper)
+                    new MatrixWarehouseStoreSite(_webScrapper),
+                    new WoolworthsStoreSite(_httpClient)
                 };
             }
         }
