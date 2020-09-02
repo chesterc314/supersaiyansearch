@@ -50,10 +50,13 @@ namespace SuperSaiyanSearch.Integration
                 {
                     var imageUrl = result.SelectToken("attributes.p_imageReference").Value<string>();
                     var sourceUrl = result.SelectToken("attributes.detailPageURL").Value<string>();
-                    var name = result.SelectToken("attributes.p_displayName").Value<string>();
+                    var displayName = result.SelectToken("attributes.p_displayName");
+                    var title = result.SelectToken("attributes.p_title");
+                    var name = (displayName ?? title).Value<string>();
                     var brands = result.SelectToken("attributes.Brands");
                     var brand = brands != null ? brands.Value<string>() : null;
-                    var price = result.SelectToken("startingPrice.p_pl00").Value<decimal>();
+                    var startingPrice = result.SelectToken("startingPrice.p_pl00");
+                    var price = startingPrice != null ? startingPrice.Value<decimal>() : 0;
 
                     resultProducts.Add(new Product
                     {
