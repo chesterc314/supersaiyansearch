@@ -173,12 +173,12 @@ export default function TitlebarGridList({ hostUrl, isTest }) {
             {resultsComponent()}
             {differenceComponent()}
             <div className={classes.root}>
-                <GridList cols={4} component="ul">
+                <GridList component="ul">
                     {(productResult !== null) && productResult.products.sort((a, b) => a.price - b.price)
                         .map((product, index) => (
-                            <GridListTile key={`${product.brand}-${index}`}>
+                            <GridListTile key={`${product.source}-${index}`}>
                                 <Link color="inherit" href={product.sourceUrl} target="_blank">
-                                    <img src={product.imageUrl} alt={product.name} width="45%" height="90%" />
+                                    <img src={product.imageUrl} alt={product.name} width="50%" height="50%" />
                                     <GridListTileBar
                                         title={product.name}
                                         subtitle={

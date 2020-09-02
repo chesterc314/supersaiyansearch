@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using SuperSaiyanSearch.Domain.Interfaces;
 using SuperSaiyanSearch.Integration.Interfaces;
 
@@ -15,7 +16,11 @@ namespace SuperSaiyanSearch.Integration
         public IEnumerable<IProduct> SearchAll(string keyword)
         {
             IEnumerable<IStoreSite> storeSites = _storeSiteConfiguration.StoreSites;
-            IEnumerable<IProduct> products = storeSites.SelectMany(storeSite => storeSite.Search(keyword));
+            var products = new List<IProduct>();
+            Parallel.ForEach(storeSites, storeSite =>
+            {
+                products.AddRange(storeSite.Search(keyword));
+            });
             return products;
         }
     }
