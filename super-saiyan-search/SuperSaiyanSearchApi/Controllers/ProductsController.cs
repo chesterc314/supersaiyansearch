@@ -6,6 +6,7 @@ using SuperSaiyanSearch.Api;
 using SuperSaiyanSearch.Api.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace SuperSaiyanSearchApi.Controllers
 {
@@ -15,10 +16,12 @@ namespace SuperSaiyanSearchApi.Controllers
     {
         private readonly ILogger<ProductsController> _logger;
         private readonly IProductApi _productApi;
-        public ProductsController(ILogger<ProductsController> logger, IProductApi productApi)
+        private readonly IMemoryCache _cache;
+        public ProductsController(ILogger<ProductsController> logger, IProductApi productApi, IMemoryCache cache)
         {
             _logger = logger;
             _productApi = productApi;
+            _cache = cache;
         }
         [HttpGet]
         [EnableCors("AllowOrigin")]
@@ -27,7 +30,10 @@ namespace SuperSaiyanSearchApi.Controllers
             var results = new ProductsReadDto(new List<ProductReadDto>());
             try
             {
-                results = _productApi.Search(q);
+                results = _cache.GetOrCreate(q, keyword => {
+                    keyword.SlidingExpiration = TimeSpan.FromHours(8);
+                    return _productApi.Search(q);
+                });
             }
             catch (Exception ex)
             {

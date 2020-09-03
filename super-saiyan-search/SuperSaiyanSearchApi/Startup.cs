@@ -31,7 +31,6 @@ namespace SuperSaiyanSearchApi
             services.AddSingleton<IStoreSiteConfiguration, StoreSiteConfiguration>();
             services.AddScoped<IStoreSiteAggregation, StoreSiteAggregation>();
             services.AddScoped<IProductApi, ProductApi>();
-            services.AddResponseCompression(configureOptions => configureOptions.EnableForHttps = true);
             services.AddMemoryCache();
             services.AddCors(c =>
             {
