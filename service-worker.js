@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/supersaiyansearch/precache-manifest.6610028b7c6d5791431937988867365b.js"
+  "/supersaiyansearch/precache-manifest.65e29de275b1145b153058444a32789f.js"
 );
 
 self.addEventListener('message', (event) => {
