@@ -53,7 +53,7 @@ namespace SuperSaiyanSearch.Integration
                     });
                 });
             }
-            return resultProducts;
+            return Product.OrderedProducts(resultProducts);
         }
     }
 }

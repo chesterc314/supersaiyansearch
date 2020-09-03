@@ -1,5 +1,6 @@
 ﻿using SuperSaiyanSearch.Domain.Interfaces;
-
+using System.Collections.Generic;
+using System.Linq;
 namespace SuperSaiyanSearch.Domain
 {
     public class Product : IProduct
@@ -12,10 +13,11 @@ namespace SuperSaiyanSearch.Domain
         public string Source { get; set; }
         public string SourceUrl { get; set; }
         public string ImageUrl { get; set; }
+        public int Order { get; set; }
 
         public Product()
-        { 
-            
+        {
+
         }
         public Product(IProduct product)
         {
@@ -26,6 +28,16 @@ namespace SuperSaiyanSearch.Domain
             this.Source = product.Source;
             this.SourceUrl = product.SourceUrl;
             this.ImageUrl = product.ImageUrl;
+        }
+
+        public static IEnumerable<Product> OrderedProducts(List<Product> products)
+        {
+            var orderedProducts = Enumerable.Range(0, products.Count).Select(index =>
+            {
+                products[index].Order = index;
+                return products[index];
+            });
+            return orderedProducts;
         }
     }
 }

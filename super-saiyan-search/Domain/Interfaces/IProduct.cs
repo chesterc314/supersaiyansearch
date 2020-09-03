@@ -10,5 +10,6 @@ namespace SuperSaiyanSearch.Domain.Interfaces
         string Source { get; set; }
         string SourceUrl { get; set; }
         string ImageUrl { get; set; }
+        int Order { get; set; }
     }
 }
