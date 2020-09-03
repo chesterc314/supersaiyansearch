@@ -44,6 +44,10 @@ const useStyles = makeStyles((theme) => ({
         paddingTop: '8px',
         paddingBottom: '8px',
     },
+    linkCheck: {
+        display: 'flex',
+        justifyContent: 'center',
+    },
     difference: {
         display: 'flex',
         justifyContent: 'center',
@@ -177,23 +181,25 @@ export default function TitlebarGridList({ hostUrl, isTest }) {
                     {(productResult !== null) && productResult.products.sort((a, b) => a.price - b.price)
                         .map((product, index) => (
                             <GridListTile key={`${product.source}-${index}`}>
-                                <Link color="inherit" href={product.sourceUrl} target="_blank">
-                                    <img src={product.imageUrl} alt={product.name} width="55%" height="100%" />
-                                    <GridListTileBar
-                                        title={product.name}
-                                        subtitle={
-                                            <React.Fragment>
-                                                <div>Price: R{product.price}</div>
-                                                <div>Source: {product.source}</div>
-                                            </React.Fragment>
-                                        } />
-                                </Link>
-                                <Checkbox
-                                    color="primary"
-                                    checked={(product1 === product) ? true : (product2 === product) ? true : false}
-                                    inputProps={{ 'aria-label': product.name }}
-                                    onChange={(event) => handleChange(event, product)}
-                                />
+                                <div className={classes.linkCheck}>
+                                    <Link color="inherit" href={product.sourceUrl} target="_blank">
+                                        <img src={product.imageUrl} alt={product.name} width="55%" height="100%" />
+                                        <GridListTileBar
+                                            title={product.name}
+                                            subtitle={
+                                                <React.Fragment>
+                                                    <div>Price: R{product.price}</div>
+                                                    <div>Source: {product.source}</div>
+                                                </React.Fragment>
+                                            } />
+                                    </Link>
+                                    <Checkbox
+                                        color="primary"
+                                        checked={(product1 === product) ? true : (product2 === product) ? true : false}
+                                        inputProps={{ 'aria-label': product.name }}
+                                        onChange={(event) => handleChange(event, product)}
+                                    />
+                                </div>
                             </GridListTile>
                         ))}
                 </GridList>
