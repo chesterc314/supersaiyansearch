@@ -21,7 +21,7 @@ namespace SuperSaiyanSearch.Integration
 
         public IEnumerable<IProduct> Search(string keyword)
         {
-             var url = "https://www.shoprite.co.za";
+            var url = "https://www.shoprite.co.za";
             var doc = _webScrapper.Scrap($"{url}/search?q={keyword}");
             var elements = doc.DocumentNode.CssSelect(".product-frame");
             var resultProducts = new List<Product>();
@@ -36,7 +36,7 @@ namespace SuperSaiyanSearch.Integration
                     var imageUrl = $"{url}{imageElementAttributes.AttributesWithName("data-src").First().Value}";
                     var cultures = new CultureInfo("en-US");
                     var priceValue = element.CssSelect(".item-product > .item-product__content > .item-product__caption > .item-product__details > .js-item-product-price > .special-price > .special-price__price > .now")
-                    .First().InnerText.Replace("R", "").Trim();
+                    .First().InnerText.Replace("R", "").Replace("Per", "").Replace("Kg", "").Trim();
                     var price = Convert.ToDecimal(priceValue, cultures);
 
                     resultProducts.Add(new Product
