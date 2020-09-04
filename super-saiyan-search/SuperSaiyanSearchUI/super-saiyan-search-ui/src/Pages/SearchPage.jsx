@@ -86,7 +86,6 @@ export default function TitlebarGridList({ hostUrl, isTest }) {
             setProduct2(null);
             if (isTest) {
                 setIsSearchClicked(false);
-                setKeyword("");
                 setProductResult(testPayload);
             } else {
                 fetch(`${hostUrl}/api/products?q=${keyword}`, requestOptions)
@@ -96,7 +95,6 @@ export default function TitlebarGridList({ hostUrl, isTest }) {
                     })
                     .then(result => {
                         setIsSearchClicked(false);
-                        setKeyword("");
                         if (result.status === 200) {
                             return result.json;
                         } else if (result.status === 404) {
