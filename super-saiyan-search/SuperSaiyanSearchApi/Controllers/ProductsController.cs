@@ -31,7 +31,7 @@ namespace SuperSaiyanSearchApi.Controllers
             try
             {
                 results = _cache.GetOrCreate(q, keyword => {
-                    keyword.SlidingExpiration = TimeSpan.FromMinutes(15);
+                    keyword.SlidingExpiration = TimeSpan.FromHours(1);
                     return _productApi.Search(q);
                 });
             }
