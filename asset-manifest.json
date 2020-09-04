@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.js": "/static/js/main.8b172e0f.chunk.js",
-    "main.js.map": "/static/js/main.8b172e0f.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.b10d2252.js",
-    "runtime-main.js.map": "/static/js/runtime-main.b10d2252.js.map",
-    "static/js/2.7e284477.chunk.js": "/static/js/2.7e284477.chunk.js",
-    "static/js/2.7e284477.chunk.js.map": "/static/js/2.7e284477.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.d3227e0f5493067bda980d7fb722f3fa.js": "/precache-manifest.d3227e0f5493067bda980d7fb722f3fa.js",
-    "service-worker.js": "/service-worker.js",
-    "static/js/2.7e284477.chunk.js.LICENSE.txt": "/static/js/2.7e284477.chunk.js.LICENSE.txt"
+    "main.js": "/supersaiyansearch/static/js/main.8b172e0f.chunk.js",
+    "main.js.map": "/supersaiyansearch/static/js/main.8b172e0f.chunk.js.map",
+    "runtime-main.js": "/supersaiyansearch/static/js/runtime-main.e05aeadb.js",
+    "runtime-main.js.map": "/supersaiyansearch/static/js/runtime-main.e05aeadb.js.map",
+    "static/js/2.7e284477.chunk.js": "/supersaiyansearch/static/js/2.7e284477.chunk.js",
+    "static/js/2.7e284477.chunk.js.map": "/supersaiyansearch/static/js/2.7e284477.chunk.js.map",
+    "index.html": "/supersaiyansearch/index.html",
+    "precache-manifest.65e29de275b1145b153058444a32789f.js": "/supersaiyansearch/precache-manifest.65e29de275b1145b153058444a32789f.js",
+    "service-worker.js": "/supersaiyansearch/service-worker.js",
+    "static/js/2.7e284477.chunk.js.LICENSE.txt": "/supersaiyansearch/static/js/2.7e284477.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.b10d2252.js",
+    "static/js/runtime-main.e05aeadb.js",
     "static/js/2.7e284477.chunk.js",
     "static/js/main.8b172e0f.chunk.js"
   ]
