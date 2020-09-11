@@ -33,7 +33,8 @@ namespace SuperSaiyanSearch.Integration
                     var sourceUrl = $"{url}{productLinkElementAttributes.AttributesWithName("href").First().Value}";
                     var name = productLinkElementAttributes.AttributesWithName("title").First().Value;
                     var imageElementAttributes = element.CssSelect(".item-product > .item-product__content > .item-product__image > .product-listening-click > img").First().Attributes;
-                    var imageUrl = $"{url}{imageElementAttributes.AttributesWithName("data-src").First().Value}";
+                    var srcAttribute = imageElementAttributes.AttributesWithName("data-src").FirstOrDefault();
+                    var imageUrl = srcAttribute != null ? $"{url}{srcAttribute.Value}" : null;
                     var cultures = new CultureInfo("en-US");
                     var priceValue = element.CssSelect(".item-product > .item-product__content > .item-product__caption > .item-product__details > .js-item-product-price > .special-price > .special-price__price > .now")
                     .First().InnerText.Replace("R", "").Replace("Per", "").Replace("Kg", "").Trim();
