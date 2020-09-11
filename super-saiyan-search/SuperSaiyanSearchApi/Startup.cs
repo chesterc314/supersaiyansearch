@@ -20,6 +20,8 @@ namespace SuperSaiyanSearchApi
             Configuration = configuration;
         }
 
+        public static string CORS_NAME = "AllowOrigin";
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -34,8 +36,9 @@ namespace SuperSaiyanSearchApi
             services.AddMemoryCache();
             services.AddCors(c =>
             {
-                c.AddPolicy("AllowOrigin", options => options.WithOrigins("https://chesterc314.github.io"));
+                c.AddPolicy(CORS_NAME, options => options.WithOrigins(Configuration["AllowedOrigin"]));
             });
+            services.AddSwaggerGen();
             services.AddControllers().AddNewtonsoftJson(options => options.UseMemberCasing())
             .AddJsonOptions(ops => ops.JsonSerializerOptions.IgnoreNullValues = true);
         }
@@ -48,11 +51,18 @@ namespace SuperSaiyanSearchApi
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.RoutePrefix = "api-docs";
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Product API V1");
+            });
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseCors(options => options.WithOrigins("https://chesterc314.github.io"));
+            app.UseCors(CORS_NAME);
 
             app.UseAuthorization();
 

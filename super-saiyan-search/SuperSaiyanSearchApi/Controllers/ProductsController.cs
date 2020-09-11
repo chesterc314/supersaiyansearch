@@ -11,6 +11,7 @@ using Microsoft.Extensions.Caching.Memory;
 namespace SuperSaiyanSearchApi.Controllers
 {
     [ApiController]
+    [Produces("application/json")]
     [Route("api/[controller]")]
     public class ProductsController : ControllerBase
     {
@@ -31,7 +32,7 @@ namespace SuperSaiyanSearchApi.Controllers
             try
             {
                 results = _cache.GetOrCreate(q, keyword => {
-                    keyword.SlidingExpiration = TimeSpan.FromHours(1);
+                    keyword.SlidingExpiration = TimeSpan.FromHours(12);
                     return _productApi.Search(q);
                 });
             }
