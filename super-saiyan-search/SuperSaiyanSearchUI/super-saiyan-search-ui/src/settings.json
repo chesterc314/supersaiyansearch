@@ -1,4 +1,4 @@
 {
-    "hostUrl": "https://supersaiyansearch.azurewebsites.net",
+    "hostUrl": "https://localhost:5001",
     "isTest": false
 }
