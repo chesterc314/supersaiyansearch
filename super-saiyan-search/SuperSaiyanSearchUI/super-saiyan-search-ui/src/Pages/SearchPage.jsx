@@ -10,8 +10,10 @@ import {
     TextField,
     Link,
     Snackbar,
-    Checkbox
+    Checkbox,
+    Tooltip
 } from '@material-ui/core';
+import InfoIcon from '@material-ui/icons/Info';
 import testPayload from './testpayload.json';
 
 const useStyles = makeStyles((theme) => ({
@@ -62,6 +64,9 @@ const useStyles = makeStyles((theme) => ({
         '& > * + *': {
             marginLeft: theme.spacing(2),
         },
+    },
+    icon: {
+        color: 'rgba(255, 255, 255, 0.54)',
     },
 }));
 
@@ -177,28 +182,32 @@ export default function TitlebarGridList({ hostUrl, isTest }) {
             <div className={classes.root}>
                 <GridList component="ul">
                     {(productResult !== null) && productResult.products.map((product, index) => (
-                            <GridListTile key={`${product.source}-${index}`}>
-                                <div className={classes.linkCheck}>
-                                    <Link color="inherit" href={product.sourceUrl} target="_blank">
-                                        <img src={product.imageUrl} alt={product.name} width="128px" height="128px" />
-                                        <GridListTileBar
-                                            title={product.name}
-                                            subtitle={
-                                                <React.Fragment>
-                                                    <div>Price: R{product.price}</div>
-                                                    <div>Source: {product.source}</div>
-                                                </React.Fragment>
-                                            } />
-                                    </Link>
-                                    <Checkbox
-                                        color="primary"
-                                        checked={(product1 === product) ? true : (product2 === product) ? true : false}
-                                        inputProps={{ 'aria-label': product.name }}
-                                        onChange={(event) => handleChange(event, product)}
-                                    />
-                                </div>
-                            </GridListTile>
-                        ))}
+                        <GridListTile key={`${product.source}-${index}`}>
+                            <div className={classes.linkCheck}>
+                                <Link color="inherit" href={product.sourceUrl} target="_blank">
+                                    <img src={product.imageUrl} alt={product.name} width="128px" height="128px" />
+                                </Link>
+                                <GridListTileBar
+                                    title={<Link color="inherit" href={product.sourceUrl} target="_blank">{product.name}</Link>}
+                                    subtitle={
+                                        <React.Fragment>
+                                            <div>Price: R{product.price}</div>
+                                            <div>Source: {product.source}</div>
+                                        </React.Fragment>
+                                    } actionIcon={
+                                        <Tooltip title={product.name} aria-label={product.name}>
+                                            <InfoIcon />
+                                        </Tooltip>
+                                    } />
+                                <Checkbox
+                                    color="primary"
+                                    checked={(product1 === product) ? true : (product2 === product) ? true : false}
+                                    inputProps={{ 'aria-label': product.name }}
+                                    onChange={(event) => handleChange(event, product)}
+                                />
+                            </div>
+                        </GridListTile>
+                    ))}
                 </GridList>
             </div>
             {resultsComponent()}
