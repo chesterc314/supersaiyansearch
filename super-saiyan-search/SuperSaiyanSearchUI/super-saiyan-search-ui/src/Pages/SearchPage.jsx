@@ -180,7 +180,7 @@ export default function TitlebarGridList({ hostUrl, isTest }) {
                             <GridListTile key={`${product.source}-${index}`}>
                                 <div className={classes.linkCheck}>
                                     <Link color="inherit" href={product.sourceUrl} target="_blank">
-                                        <img src={product.imageUrl} alt={product.name} width="55%" height="100%" />
+                                        <img src={product.imageUrl} alt={product.name} width="128px" height="128px" />
                                         <GridListTileBar
                                             title={product.name}
                                             subtitle={
