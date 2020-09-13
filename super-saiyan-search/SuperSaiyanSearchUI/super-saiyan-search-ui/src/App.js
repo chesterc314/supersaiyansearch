@@ -20,9 +20,6 @@ export default function App() {
     <Container maxWidth="xl">
       <SearchPage hostUrl={Settings.hostUrl} isTest={Settings.isTest} />
       <Copyright />
-      <Link href="https://www.viglink.com/legal/consumer-disclosure/?vgtag=badge&vgref=459973" align="center" target="_blank">
-        <img title="Links monetized by VigLink" src="https://www.viglink.com/images/badges/88x31.png" alt="VigLink badge" width="88" height="31" />
-      </Link>
     </Container>
   );
 }

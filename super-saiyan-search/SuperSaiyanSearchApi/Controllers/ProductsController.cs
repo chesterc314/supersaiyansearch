@@ -29,25 +29,26 @@ namespace SuperSaiyanSearchApi.Controllers
         public ActionResult<ProductsReadDto> Get([FromQuery] string q)
         {
             var results = new ProductsReadDto(new List<ProductReadDto>());
+            var word = q.ToLower();
             try
             {
-                results = _cache.GetOrCreate(q, keyword => {
+                results = _cache.GetOrCreate(word, keyword => {
                     keyword.SlidingExpiration = TimeSpan.FromHours(12);
-                    return _productApi.Search(q);
+                    return _productApi.Search(word);
                 });
             }
             catch (Exception ex)
             {
-                _logger.LogError(new EventId(results.GetHashCode(), Guid.NewGuid().ToString()), ex, $"Error occurred proccessing the request. Query parameter: {q}");
+                _logger.LogError(new EventId(results.GetHashCode(), Guid.NewGuid().ToString()), ex, $"Error occurred proccessing the request. Query parameter: {word}");
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
             if (results.TotalResults == 0)
             {
-                var notFoundMessage = $"No products found for your search query: {q}";
+                var notFoundMessage = $"No products found for your search query: {word}";
                 _logger.LogInformation(notFoundMessage);
                 return NotFound(notFoundMessage);
             }
-            _logger.LogInformation($"Total results returned: {results.TotalResults} for search query: {q}");
+            _logger.LogInformation($"Total results returned: {results.TotalResults} for search query: {word}");
             return Ok(results);
         }
     }
