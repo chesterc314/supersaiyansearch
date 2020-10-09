@@ -38,8 +38,8 @@ namespace SuperSaiyanSearch.Integration
                         var imageUrl = imageElementAttributes.AttributesWithName("src").First().Value;
                         var cultures = new CultureInfo("en-US");
                         var regularPriceBox = element.CssSelect(".product-inner > .woocommerce-LoopProduct-link.woocommerce-loop-product__link > .price > .woocommerce-Price-amount.amount").FirstOrDefault();
-                        var specialPriceBox = element.CssSelect(".product-inner > .woocommerce-LoopProduct-link.woocommerce-loop-product__link > .price > ins > .woocommerce-Price-amount.amount");
-                        var priceValue = (regularPriceBox ?? specialPriceBox.First()).InnerText.Replace("&#82;", "").Trim('\n').Trim('R').Trim();
+                        var specialPriceBox = element.CssSelect(".product-inner > .woocommerce-LoopProduct-link.woocommerce-loop-product__link > .price > ins > .woocommerce-Price-amount.amount").FirstOrDefault();
+                        var priceValue = (regularPriceBox != null || specialPriceBox != null)?(regularPriceBox ?? specialPriceBox).InnerText.Replace("&#82;", "").Trim('\n').Trim('R').Trim(): "0,0";
                         var price = Convert.ToDecimal(priceValue, cultures);
 
                         resultProducts.Add(new Product
