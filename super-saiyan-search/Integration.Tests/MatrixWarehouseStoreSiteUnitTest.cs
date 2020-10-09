@@ -18,7 +18,7 @@ namespace SuperSaiyanSearch.Integration.Tests
             var results = _matrixWarehouseStoreSite.Search("laptop");
             var hasPositivePrices = true;
             Assert.NotNull(results);
-            Assert.Equal(hasPositivePrices, results.All(r => r.Price > 0));
+            Assert.Equal(hasPositivePrices, results.All(r => r.Price >= 0));
         }
     }
 }
