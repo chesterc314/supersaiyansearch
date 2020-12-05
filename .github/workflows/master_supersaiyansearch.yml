@@ -35,7 +35,7 @@ jobs:
     # - name: Deploy API
     #   uses: SamKirkland/FTP-Deploy-Action@4.0.0
     #   with:
-    #     server: ftp://${{ secrets.SUPERSAIYAN_FTP_SERVER }}
+    #     server: ${{ secrets.SUPERSAIYAN_FTP_SERVER }}
     #     username: ${{ secrets.SUPERSAIYAN_FTP_USERNAME }}
     #     password: ${{ secrets.SUPERSAIYAN_FTP_PASSWORD }}
     #     local-dir: ${{env.DOTNET_ROOT}}/myapp/
