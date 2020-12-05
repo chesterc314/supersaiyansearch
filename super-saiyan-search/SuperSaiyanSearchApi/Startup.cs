@@ -55,6 +55,7 @@ namespace SuperSaiyanSearchApi
             app.UseSwaggerUI(c =>
             {
                 c.RoutePrefix = "api-docs";
+                c.DocumentTitle = "Super Saiyan Search Api";
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Product API V1");
             });
 

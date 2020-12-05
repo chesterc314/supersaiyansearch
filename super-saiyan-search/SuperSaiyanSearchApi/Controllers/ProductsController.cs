@@ -12,7 +12,7 @@ namespace SuperSaiyanSearchApi.Controllers
 {
     [ApiController]
     [Produces("application/json")]
-    [Route("api/[controller]")]
+    [Route("api/products")]
     public class ProductsController : ControllerBase
     {
         private readonly ILogger<ProductsController> _logger;

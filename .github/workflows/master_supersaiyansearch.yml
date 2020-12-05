@@ -27,15 +27,3 @@ jobs:
     - name: Run tests with dotnet
       working-directory: .\super-saiyan-search\
       run: dotnet test
-
-    - name: dotnet publish
-      working-directory: .\super-saiyan-search\SuperSaiyanSearchApi\
-      run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
-
-    - name: Deploy to Azure Web App
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: 'supersaiyansearch'
-        slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_2358ad5f1a4e46e9a39062e3467309cf }}
-        package: ${{env.DOTNET_ROOT}}/myapp 
