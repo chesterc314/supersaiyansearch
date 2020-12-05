@@ -33,10 +33,10 @@ jobs:
       run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp 
     
     - name: Deploy API
-      uses: sebastianpopp/ftp-action@releases/v2
+      uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
-        host: ${{ secrets.SUPERSAIYAN_FTP_SERVER }}
-        user: ${{ secrets.SUPERSAIYAN_FTP_USERNAME }}
+        server: ftp://${{ secrets.SUPERSAIYAN_FTP_SERVER }}
+        username: ${{ secrets.SUPERSAIYAN_FTP_USERNAME }}
         password: ${{ secrets.SUPERSAIYAN_FTP_PASSWORD }}
-        localDir: ${{env.DOTNET_ROOT}}/myapp/
-        remoteDir: /supersaiyansearchapi.co.za/wwwroot/
+        local-dir: ${{env.DOTNET_ROOT}}/myapp/
+        server-dir: /supersaiyansearchapi.co.za/wwwroot/
