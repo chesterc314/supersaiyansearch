@@ -38,5 +38,5 @@ jobs:
         server: ${{ secrets.SUPERSAIYAN_FTP_SERVER }}
         username: ${{ secrets.SUPERSAIYAN_FTP_USERNAME }} 
         password: ${{ secrets.SUPERSAIYAN_FTP_PASSWORD }} 
-        local-dir: ${{env.DOTNET_ROOT}}/myapp
+        local-dir: ${{env.DOTNET_ROOT}}/myapp/
         server-dir: /supersaiyansearchapi.co.za/wwwroot/ 
