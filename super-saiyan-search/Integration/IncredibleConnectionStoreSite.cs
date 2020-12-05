@@ -22,19 +22,19 @@ namespace SuperSaiyanSearch.Integration
         {
             var url = "https://www.incredible.co.za";
             var doc = _webScrapper.Scrap($"{url}/catalogsearch/result/?q={keyword}");
-            var elements = doc.DocumentNode.CssSelect(".products-grid > li.item");
+            var elements = doc.DocumentNode.CssSelect("li.item.product.product-item");
             var resultProducts = new List<Product>();
             if (elements.Any())
             {
                 Parallel.ForEach(elements, element =>
                 {
-                    var productLinkElementAttributes = element.CssSelect(".grid-product-image > .product-image").First().Attributes;
+                    var productLinkElementAttributes = element.CssSelect(".product-item-info .product").First().Attributes;
                     var sourceUrl = productLinkElementAttributes.AttributesWithName("href").First().Value;
-                    var name = productLinkElementAttributes.AttributesWithName("title").First().Value;
-                    var imageElementAttributes = element.CssSelect(".grid-product-image > .product-image > .grid-image-wrapper > img").First().Attributes;
-                    var imageUrl = imageElementAttributes.AttributesWithName("data-src").First().Value;
+                    var imageElementAttributes = element.CssSelect(".product-image-photo").First().Attributes;
+                    var imageUrl = imageElementAttributes.AttributesWithName("src").First().Value;
+                    var name = imageElementAttributes.AttributesWithName("alt").First().Value;
                     var cultures = new CultureInfo("en-US");
-                    var priceValue = element.CssSelect(".grid-product-price > .price").First().InnerText.Replace("\n", "").Replace("R", "");
+                    var priceValue = element.CssSelect(".product-item-details .price").First().InnerText.Replace("\n", "").Replace("R", "");
                     var price = Convert.ToDecimal(priceValue, cultures);
 
                     resultProducts.Add(new Product

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Container, Link } from '@material-ui/core';
+import { Typography, Container } from '@material-ui/core';
 import SearchPage from './Pages/SearchPage';
 import Settings from './settings.json';
 
