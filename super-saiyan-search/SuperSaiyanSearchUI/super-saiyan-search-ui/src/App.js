@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Container } from '@material-ui/core';
+import { Typography, Container, Link } from '@material-ui/core';
 import SearchPage from './Pages/SearchPage';
 import Settings from './settings.json';
 
@@ -11,9 +11,22 @@ function Copyright() {
       {' '}
       {new Date().getFullYear()}
       {'.'}
+      <OpenSourceLink />
     </Typography>
   );
 }
+
+function OpenSourceLink() {
+  return (
+    <div>
+      <Link href="https://github.com/chesterc314/supersaiyansearch" target="_blank">
+        <img src="github.ico" alt="Github logo" width="64px" height="64px"></img>
+        <div>Source code</div>
+      </Link>
+    </div>
+  );
+}
+
 
 export default function App() {
   return (
