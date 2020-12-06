@@ -27,6 +27,7 @@ namespace SuperSaiyanSearch.Integration
             var resultProducts = new List<Product>();
             if (results.Count > 0)
             {
+                var index = 0;
                 foreach (var result in results)
                 {
                     var slug = result.SelectToken("product_views.core.slug").Value<string>();
@@ -46,12 +47,14 @@ namespace SuperSaiyanSearch.Integration
                         Source = StoreSiteName.Takealot.ToString(),
                         SourceUrl = $"https://www.takealot.com/{slug}/{id}",
                         ImageUrl = $"{imageUrlParts[0]}fb{imageUrlParts[1]}",
-                        Units = 1
+                        Units = 1,
+                        Order = index
                     });
+                    ++index;
                 }
             }
 
-            return Product.OrderedProducts(resultProducts);
+            return resultProducts;
         }
     }
 }

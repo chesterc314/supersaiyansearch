@@ -28,16 +28,7 @@ namespace SuperSaiyanSearch.Domain
             this.Source = product.Source;
             this.SourceUrl = product.SourceUrl;
             this.ImageUrl = product.ImageUrl;
-        }
-
-        public static IEnumerable<Product> OrderedProducts(List<Product> products)
-        {
-            var orderedProducts = Enumerable.Range(0, products.Count).Select(index =>
-            {
-                products[index].Order = index;
-                return products[index];
-            });
-            return orderedProducts;
+            this.Order = product.Order;
         }
     }
 }

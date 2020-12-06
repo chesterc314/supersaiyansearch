@@ -26,6 +26,7 @@ namespace SuperSaiyanSearch.Integration
             var resultProducts = new List<Product>();
             if (elements.Any())
             {
+                var index = 0;
                 foreach (var element in elements)
                 {
                     var productLinkElementAttributes = element.CssSelect(".product-item-info .product").First().Attributes;
@@ -46,12 +47,14 @@ namespace SuperSaiyanSearch.Integration
                         Brand = null,
                         Source = StoreSiteName.IncredibleConnection.ToString(),
                         SourceUrl = sourceUrl,
-                        ImageUrl = imageUrl
+                        ImageUrl = imageUrl,
+                        Order = index
                     });
+                    ++index;
                 }
             }
 
-            return Product.OrderedProducts(resultProducts);
+            return resultProducts;
         }
     }
 }

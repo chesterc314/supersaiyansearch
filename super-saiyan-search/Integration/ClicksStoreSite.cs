@@ -28,9 +28,10 @@ namespace SuperSaiyanSearch.Integration
             var resultProducts = new List<Product>();
             if (elements.Any())
             {
+                var index = 0;
                 foreach (var element in elements)
                 {
-                     var productLinkElementAttributes = element.CssSelect(".productBlock > a").First().Attributes;
+                    var productLinkElementAttributes = element.CssSelect(".productBlock > a").First().Attributes;
                     var sourceUrl = $"{url}{productLinkElementAttributes.AttributesWithName("href").First().Value}";
                     var name = productLinkElementAttributes.AttributesWithName("title").First().Value;
                     var imageElementAttributes = element.CssSelect(".productBlock > a > img").First().Attributes;
@@ -49,11 +50,13 @@ namespace SuperSaiyanSearch.Integration
                         Brand = null,
                         Source = StoreSiteName.Clicks.ToString(),
                         SourceUrl = sourceUrl,
-                        ImageUrl = imageUrl
+                        ImageUrl = imageUrl,
+                        Order = index
                     });
+                    ++index;
                 }
             }
-            return Product.OrderedProducts(resultProducts);
+            return resultProducts;
         }
     }
 }

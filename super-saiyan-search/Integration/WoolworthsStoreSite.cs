@@ -47,6 +47,7 @@ namespace SuperSaiyanSearch.Integration
             var resultProducts = new List<Product>();
             if (records.Count > 0)
             {
+                var index = 0;
                 foreach (var result in records)
                 {
                     var imageUrl = result.SelectToken("attributes.p_imageReference").Value<string>();
@@ -66,12 +67,14 @@ namespace SuperSaiyanSearch.Integration
                         Source = StoreSiteName.Woolworths.ToString(),
                         SourceUrl = $"https://{host}{sourceUrl}",
                         ImageUrl = $"https://{host}{imageUrl}",
-                        Units = 1
+                        Units = 1,
+                        Order = index
                     });
+                    ++index;
                 }
             }
 
-            return Product.OrderedProducts(resultProducts);
+            return resultProducts;
         }
     }
 }

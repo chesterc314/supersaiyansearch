@@ -26,6 +26,7 @@ namespace SuperSaiyanSearch.Integration
             var resultProducts = new List<Product>();
             if (elements.Any())
             {
+                var index = 0;
                 foreach (var element in elements)
                 {
                     var productLinkElement = element.CssSelect(".product-inner > .woocommerce-LoopProduct-link.woocommerce-loop-product__link").FirstOrDefault();
@@ -51,12 +52,14 @@ namespace SuperSaiyanSearch.Integration
                             Brand = null,
                             Source = StoreSiteName.MatrixWarehouse.ToString(),
                             SourceUrl = sourceUrl,
-                            ImageUrl = imageUrl
+                            ImageUrl = imageUrl,
+                            Order = index
                         });
+                        ++index;
                     }
                 }
             }
-            return Product.OrderedProducts(resultProducts);
+            return resultProducts;
         }
     }
 }
