@@ -28,7 +28,7 @@ namespace SuperSaiyanSearch.Integration
             var resultProducts = new List<Product>();
             if (elements.Any())
             {
-                Parallel.ForEach(elements, element =>
+                foreach (var element in elements)
                 {
                     var productLinkElementAttributes = element.CssSelect(".product-tile-inner > .product-tile-inner__img").First().Attributes;
                     var sourceUrl = $"{url}{productLinkElementAttributes.AttributesWithName("href").First().Value}";
@@ -57,7 +57,7 @@ namespace SuperSaiyanSearch.Integration
                         SourceUrl = sourceUrl,
                         ImageUrl = imageUrl
                     });
-                });
+                }
             }
 
             return Product.OrderedProducts(resultProducts);

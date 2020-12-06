@@ -27,7 +27,7 @@ namespace SuperSaiyanSearch.Integration
             var resultProducts = new List<Product>();
             if (results.Count > 0)
             {
-                Parallel.ForEach(results, result =>
+                foreach (var result in results)
                 {
                     var slug = result.SelectToken("product_views.core.slug").Value<string>();
                     var innerProducts = result.SelectToken("product_views.enhanced_ecommerce_click.ecommerce.click.products").Value<JArray>();
@@ -48,7 +48,7 @@ namespace SuperSaiyanSearch.Integration
                         ImageUrl = $"{imageUrlParts[0]}fb{imageUrlParts[1]}",
                         Units = 1
                     });
-                });
+                }
             }
 
             return Product.OrderedProducts(resultProducts);

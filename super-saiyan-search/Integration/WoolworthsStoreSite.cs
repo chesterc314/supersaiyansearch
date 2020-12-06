@@ -47,7 +47,7 @@ namespace SuperSaiyanSearch.Integration
             var resultProducts = new List<Product>();
             if (records.Count > 0)
             {
-                Parallel.ForEach(records, result =>
+                foreach (var result in records)
                 {
                     var imageUrl = result.SelectToken("attributes.p_imageReference").Value<string>();
                     var sourceUrl = result.SelectToken("attributes.detailPageURL").Value<string>();
@@ -68,7 +68,7 @@ namespace SuperSaiyanSearch.Integration
                         ImageUrl = $"https://{host}{imageUrl}",
                         Units = 1
                     });
-                });
+                }
             }
 
             return Product.OrderedProducts(resultProducts);

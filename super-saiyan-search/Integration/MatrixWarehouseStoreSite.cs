@@ -26,7 +26,7 @@ namespace SuperSaiyanSearch.Integration
             var resultProducts = new List<Product>();
             if (elements.Any())
             {
-                Parallel.ForEach(elements, element =>
+                foreach (var element in elements)
                 {
                     var productLinkElement = element.CssSelect(".product-inner > .woocommerce-LoopProduct-link.woocommerce-loop-product__link").FirstOrDefault();
                     if (productLinkElement != null)
@@ -39,7 +39,7 @@ namespace SuperSaiyanSearch.Integration
                         var cultures = new CultureInfo("en-US");
                         var regularPriceBox = element.CssSelect(".product-inner > .woocommerce-LoopProduct-link.woocommerce-loop-product__link > .price > .woocommerce-Price-amount.amount").FirstOrDefault();
                         var specialPriceBox = element.CssSelect(".product-inner > .woocommerce-LoopProduct-link.woocommerce-loop-product__link > .price > ins > .woocommerce-Price-amount.amount").FirstOrDefault();
-                        var priceValue = (regularPriceBox != null || specialPriceBox != null)?(regularPriceBox ?? specialPriceBox).InnerText.Replace("&#82;", "").Trim('\n').Trim('R').Trim(): "0,0";
+                        var priceValue = (regularPriceBox != null || specialPriceBox != null) ? (regularPriceBox ?? specialPriceBox).InnerText.Replace("&#82;", "").Trim('\n').Trim('R').Trim() : "0,0";
                         var price = Convert.ToDecimal(priceValue, cultures);
 
                         resultProducts.Add(new Product
@@ -54,7 +54,7 @@ namespace SuperSaiyanSearch.Integration
                             ImageUrl = imageUrl
                         });
                     }
-                });
+                }
             }
             return Product.OrderedProducts(resultProducts);
         }
