@@ -8,29 +8,28 @@ namespace SuperSaiyanSearch.Integration
 {
     public class HttpClient : IHttpClient
     {
+        private const int RETRY_COUNT = 3;
         private readonly RestClient _restClient;
-        private readonly CookieContainer _cc;
         public HttpClient()
         {
             _restClient = new RestClient();
-            _cc = new CookieContainer();
-            _restClient.CookieContainer = _cc;
+            _restClient.CookieContainer = new CookieContainer();
         }
         public IRestResponse Get(string url, ICollection<KeyValuePair<string, string>> headers)
         {
-            var response = this.GetRequest(url, headers);
-            var code = (int)response.StatusCode;
-            int codeResult = (code / 200);
-            if(codeResult != 1)
+            var request = new RestRequest();
+            var response = this.GetRequest(request, url, headers);
+            var count = 0;
+            while (!response.IsSuccessful && count < RETRY_COUNT)
             {
-               response = this.GetRequest(url, headers);
+                response = this.GetRequest(request, url, headers);
+                ++count;
             }
             return response;
         }
 
-        private IRestResponse GetRequest(string url, ICollection<KeyValuePair<string, string>> headers)
+        private IRestResponse GetRequest(RestRequest request, string url, ICollection<KeyValuePair<string, string>> headers)
         {
-            var request = new RestRequest();
             request.AddHeaders(headers);
             _restClient.BaseUrl = new Uri(url);
             var response = _restClient.Get(request);
