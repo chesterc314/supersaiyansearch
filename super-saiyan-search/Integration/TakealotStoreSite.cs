@@ -5,6 +5,7 @@ using SuperSaiyanSearch.Domain.Interfaces;
 using SuperSaiyanSearch.Integration.Interfaces;
 using System.Web;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace SuperSaiyanSearch.Integration
 {
@@ -19,42 +20,50 @@ namespace SuperSaiyanSearch.Integration
         public IEnumerable<IProduct> Search(string keyword)
         {
             var response = _httpClient.Get($"https://api.takealot.com/rest/v-1-9-1/searches/products,filters,facets,sort_options,breadcrumbs,slots_audience,context,seo?qsearch={keyword}", new List<KeyValuePair<string, string>>());
-            var parent = JObject.Parse(response.Content);
-            var sections = parent.Value<JObject>("sections");
-            var products = sections.Value<JObject>("products");
-            var results = products.Value<JArray>("results");
 
-            var resultProducts = new List<Product>();
-            if (results.Count > 0)
+            try
             {
-                var index = 0;
-                foreach (var result in results)
-                {
-                    var slug = result.SelectToken("product_views.core.slug").Value<string>();
-                    var innerProducts = result.SelectToken("product_views.enhanced_ecommerce_click.ecommerce.click.products").Value<JArray>();
-                    var images = result.SelectToken("product_views.gallery.images");
-                    var imageUrl = images.First.Value<string>();
-                    var id = innerProducts.First.SelectToken("id").Value<string>();
-                    var name = innerProducts.First.SelectToken("name").Value<string>();
-                    var price = innerProducts.First.SelectToken("price").Value<decimal>();
-                    var imageUrlParts = imageUrl.Split("{size}");
-                    resultProducts.Add(new Product
-                    {
-                        Name = name,
-                        Description = name,
-                        Price = price,
-                        Brand = null,
-                        Source = StoreSiteName.Takealot.ToString(),
-                        SourceUrl = $"https://www.takealot.com/{slug}/{id}",
-                        ImageUrl = $"{imageUrlParts[0]}fb{imageUrlParts[1]}",
-                        Units = 1,
-                        Order = index
-                    });
-                    ++index;
-                }
-            }
+                var parent = JObject.Parse(response.Content);
+                var sections = parent.Value<JObject>("sections");
+                var products = sections.Value<JObject>("products");
+                var results = products.Value<JArray>("results");
 
-            return resultProducts;
+                var resultProducts = new List<Product>();
+                if (results.Count > 0)
+                {
+                    var index = 0;
+                    foreach (var result in results)
+                    {
+                        var slug = result.SelectToken("product_views.core.slug").Value<string>();
+                        var innerProducts = result.SelectToken("product_views.enhanced_ecommerce_click.ecommerce.click.products").Value<JArray>();
+                        var images = result.SelectToken("product_views.gallery.images");
+                        var imageUrl = images.First.Value<string>();
+                        var id = innerProducts.First.SelectToken("id").Value<string>();
+                        var name = innerProducts.First.SelectToken("name").Value<string>();
+                        var price = innerProducts.First.SelectToken("price").Value<decimal>();
+                        var imageUrlParts = imageUrl.Split("{size}");
+                        resultProducts.Add(new Product
+                        {
+                            Name = name,
+                            Description = name,
+                            Price = price,
+                            Brand = null,
+                            Source = StoreSiteName.Takealot.ToString(),
+                            SourceUrl = $"https://www.takealot.com/{slug}/{id}",
+                            ImageUrl = $"{imageUrlParts[0]}fb{imageUrlParts[1]}",
+                            Units = 1,
+                            Order = index
+                        });
+                        ++index;
+                    }
+                }
+
+                return resultProducts;
+            }
+            catch (JsonReaderException)
+            {
+                return new List<Product>();
+            }
         }
     }
 }
