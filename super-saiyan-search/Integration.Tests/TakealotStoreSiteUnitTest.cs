@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Net;
 using SuperSaiyanSearch.Domain.Interfaces;
 using Xunit;
 
@@ -10,7 +11,7 @@ namespace SuperSaiyanSearch.Integration.Tests
 
         public TakealotStoreSiteUnitTest()
         {
-           _takealotStoreSite = new TakealotStoreSite(new HttpClient());
+            _takealotStoreSite = new TakealotStoreSite(new HttpClient());
         }
         [Fact]
         public void GivenUrlWhenSearchingScrapThenReturnSiteContent()

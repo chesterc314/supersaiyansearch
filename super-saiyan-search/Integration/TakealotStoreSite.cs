@@ -3,8 +3,6 @@ using Newtonsoft.Json.Linq;
 using SuperSaiyanSearch.Domain;
 using SuperSaiyanSearch.Domain.Interfaces;
 using SuperSaiyanSearch.Integration.Interfaces;
-using System.Web;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace SuperSaiyanSearch.Integration
@@ -19,7 +17,10 @@ namespace SuperSaiyanSearch.Integration
         }
         public IEnumerable<IProduct> Search(string keyword)
         {
-            var response = _httpClient.Get($"https://api.takealot.com/rest/v-1-9-1/searches/products,filters,facets,sort_options,breadcrumbs,slots_audience,context,seo?qsearch={keyword}", new List<KeyValuePair<string, string>>());
+            var headers = new List<KeyValuePair<string, string>>();
+            headers.Add(KeyValuePair.Create("User-Agent", "Mozilla/5.0 (Windows NT x.y; Win64; x64; rv:10.0) Gecko/20100101 Firefox/10.0"));
+            headers.Add(KeyValuePair.Create("Host", "api.takealot.com"));
+            var response = _httpClient.Get($"https://api.takealot.com/rest/v-1-9-1/searches/products,filters,facets,sort_options,breadcrumbs,slots_audience,context,seo?qsearch={keyword}", headers);
 
             try
             {

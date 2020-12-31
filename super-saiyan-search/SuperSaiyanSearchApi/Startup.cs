@@ -10,6 +10,7 @@ using SuperSaiyanSearch.Integration.Interfaces;
 using SuperSaiyanSearch.Integration;
 using SuperSaiyanSearch.Api;
 using SuperSaiyanSearch.Api.Interfaces;
+using System.Net;
 
 namespace SuperSaiyanSearchApi
 {
