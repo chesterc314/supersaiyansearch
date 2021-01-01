@@ -13,6 +13,7 @@ namespace SuperSaiyanSearch.Integration
         public HttpClient()
         {
             _restClient = new RestClient();
+            _restClient.UserAgent= "Mozilla/5.0 (Windows NT x.y; Win64; x64; rv:10.0) Gecko/20100101 Firefox/10.0";
             _restClient.CookieContainer = new CookieContainer();
         }
         public IRestResponse Get(string url, ICollection<KeyValuePair<string, string>> headers)

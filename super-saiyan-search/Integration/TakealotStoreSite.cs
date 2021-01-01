@@ -18,7 +18,6 @@ namespace SuperSaiyanSearch.Integration
         public IEnumerable<IProduct> Search(string keyword)
         {
             var headers = new List<KeyValuePair<string, string>>();
-            headers.Add(KeyValuePair.Create("User-Agent", "Mozilla/5.0 (Windows NT x.y; Win64; x64; rv:10.0) Gecko/20100101 Firefox/10.0"));
             headers.Add(KeyValuePair.Create("Host", "api.takealot.com"));
             headers.Add(KeyValuePair.Create("Cache-Control", "no-cache"));
             headers.Add(KeyValuePair.Create("Cookie", "__cfduid=dd89c57d0773db19406e9522348e080ed1609430273"));
