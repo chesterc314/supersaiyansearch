@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SuperSaiyanSearch.Domain;
 using SuperSaiyanSearch.Domain.Interfaces;
@@ -23,10 +24,11 @@ namespace SuperSaiyanSearch.Integration
             headers.Add(KeyValuePair.Create("Referer", $"https://{host}/cat?Ntt={keyword}&Dy=1"));
             headers.Add(KeyValuePair.Create("Host", host));
             var response = _httpClient.Get($"https://{host}/server/searchCategory?pageURL=%2Fcat&Ntt={keyword}&Dy=1", headers);
-            var parent = JObject.Parse(response.Content);
+            
             var records = new JArray();
             try
             {
+                var parent = JObject.Parse(response.Content);
                 var contents = parent.Value<JArray>("contents");
                 var mainContent = contents[0].Value<JArray>("mainContent");
                 var contents2 = mainContent[0].Value<JArray>("contents");
@@ -42,6 +44,10 @@ namespace SuperSaiyanSearch.Integration
                 {
                     throw ex;
                 }
+            }
+            catch (JsonReaderException)
+            {
+                return new List<Product>();
             }
 
             var resultProducts = new List<Product>();

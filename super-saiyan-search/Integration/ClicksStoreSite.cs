@@ -31,29 +31,33 @@ namespace SuperSaiyanSearch.Integration
                 var index = 0;
                 foreach (var element in elements)
                 {
-                    var productLinkElementAttributes = element.CssSelect(".productBlock > a").First().Attributes;
-                    var sourceUrl = $"{url}{productLinkElementAttributes.AttributesWithName("href").First().Value}";
-                    var name = productLinkElementAttributes.AttributesWithName("title").First().Value;
-                    var imageElementAttributes = element.CssSelect(".productBlock > a > img").First().Attributes;
-                    var imageUrl = $"{url}{imageElementAttributes.AttributesWithName("src").First().Value}";
-                    var cultures = new CultureInfo("en-US");
-                    var priceValue = element.CssSelect(".productBlock > .detailContent > .price-wrap > .price")
-                    .First().InnerText.Replace("R", "").Trim();
-                    var price = Convert.ToDecimal(priceValue, cultures);
-
-                    resultProducts.Add(new Product
+                    var productLinkElement = element.CssSelect(".productBlock > a").FirstOrDefault();
+                    if (productLinkElement != null)
                     {
-                        Name = HttpUtility.HtmlDecode(name),
-                        Description = name,
-                        Price = price,
-                        Units = 1,
-                        Brand = null,
-                        Source = StoreSiteName.Clicks.ToString(),
-                        SourceUrl = sourceUrl,
-                        ImageUrl = imageUrl,
-                        Order = index
-                    });
-                    ++index;
+                        var productLinkElementAttributes = productLinkElement.Attributes;
+                        var sourceUrl = $"{url}{productLinkElementAttributes.AttributesWithName("href").First().Value}";
+                        var name = productLinkElementAttributes.AttributesWithName("title").First().Value;
+                        var imageElementAttributes = element.CssSelect(".productBlock > a > img").First().Attributes;
+                        var imageUrl = $"{url}{imageElementAttributes.AttributesWithName("src").First().Value}";
+                        var cultures = new CultureInfo("en-US");
+                        var priceValue = element.CssSelect(".productBlock > .detailContent > .price-wrap > .price")
+                        .First().InnerText.Replace("R", "").Trim();
+                        var price = Convert.ToDecimal(priceValue, cultures);
+
+                        resultProducts.Add(new Product
+                        {
+                            Name = HttpUtility.HtmlDecode(name),
+                            Description = name,
+                            Price = price,
+                            Units = 1,
+                            Brand = null,
+                            Source = StoreSiteName.Clicks.ToString(),
+                            SourceUrl = sourceUrl,
+                            ImageUrl = imageUrl,
+                            Order = index
+                        });
+                        ++index;
+                    }
                 }
             }
             return resultProducts;
