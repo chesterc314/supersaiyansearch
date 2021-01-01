@@ -23,6 +23,10 @@ namespace SuperSaiyanSearch.Integration
             while (!response.IsSuccessful && count < RETRY_COUNT)
             {
                 response = this.GetRequest(request, url, headers);
+                if(response.IsSuccessful)
+                {
+                    break;
+                }
                 ++count;
             }
             return response;
