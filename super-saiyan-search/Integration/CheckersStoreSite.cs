@@ -40,7 +40,7 @@ namespace SuperSaiyanSearch.Integration
                     var cultures = new CultureInfo("en-US");
                     var priceValue = element.CssSelect(".item-product > .item-product__content > .item-product__caption > .item-product__details > .js-item-product-price > .special-price > .special-price__price > .now")
                     .First().InnerText.Replace("R", "").Replace("Per", "").Replace("Kg", "").Trim();
-                    var price = Convert.ToDecimal(priceValue, cultures);
+                    var price = string.IsNullOrEmpty(priceValue) ? 0 : Convert.ToDecimal(priceValue, cultures);
 
                     resultProducts.Add(new Product
                     {
