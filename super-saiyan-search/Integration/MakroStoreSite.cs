@@ -31,7 +31,11 @@ namespace SuperSaiyanSearch.Integration
                 var index = 0;
                 foreach (var element in elements)
                 {
-                    var productLinkElementAttributes = element.CssSelect(".product-tile-inner > .product-tile-inner__img").First().Attributes;
+                    var productLinkImage = element.CssSelect(".product-tile-inner > .product-tile-inner__img").FirstOrDefault();
+                    if(productLinkImage == null){
+                        continue;
+                    }
+                    var productLinkElementAttributes = productLinkImage.Attributes;
                     var sourceUrl = $"{url}{productLinkElementAttributes.AttributesWithName("href").First().Value}";
                     var name = productLinkElementAttributes.AttributesWithName("title").First().Value;
                     var imageElementAttributes = element.CssSelect(".product-tile-inner > .product-tile-inner__img > img").First().Attributes;
