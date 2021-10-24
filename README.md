@@ -6,7 +6,7 @@ Super Saiyan Search search from any store in South Africa
 
 ## SuperSaiyanSearch architecture
 
-UI(React Single Page Application) -------------> API(C# .Net Core Web API) -------------> Store sites/apis  
+UI(React Single Page Application) ------------> API(C# .Net Core Web API) ------------> Store sites/apis  
 
 ## Stores that are scrapped 
 - Takealot 
