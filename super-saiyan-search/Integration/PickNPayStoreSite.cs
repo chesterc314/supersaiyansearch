@@ -31,28 +31,31 @@ namespace SuperSaiyanSearch.Integration
                 foreach (var element in elements)
                 {
                     var productLinkElementAttributes = element.CssSelect(".productCarouselItem > .product-card-grid > a").First().Attributes;
-                    var sourceUrl = $"{url}{productLinkElementAttributes.AttributesWithName("href").First().Value}";
-                    var imageElementAttributes = element.CssSelect(".productCarouselItem > .product-card-grid > a > .thumb > img").First().Attributes;
-                    var imageUrl = imageElementAttributes.AttributesWithName("src").First().Value;
-                    var name = imageElementAttributes.AttributesWithName("title").First().Value;
-                    var cultures = new CultureInfo("en-US");
-                    var priceValue = element.CssSelect(".productCarouselItem > .product-card-grid > a > .product-price > .item-price > .currentPrice")
-                    .First().InnerHtml.Replace("R", "").Replace("<span>", ".").Replace("</span>", "").Trim();
-                    var price = Convert.ToDecimal(priceValue, cultures);
+                    var productLink = productLinkElementAttributes.AttributesWithName("href").FirstOrDefault();
+                    if(productLink != null){
+                        var sourceUrl = $"{url}{productLink.Value}";
+                        var imageElementAttributes = element.CssSelect(".productCarouselItem > .product-card-grid > a > .thumb > img").First().Attributes;
+                        var imageUrl = imageElementAttributes.AttributesWithName("src").First().Value;
+                        var name = imageElementAttributes.AttributesWithName("title").First().Value;
+                        var cultures = new CultureInfo("en-US");
+                        var priceValue = element.CssSelect(".productCarouselItem > .product-card-grid > a > .product-price > .item-price > .currentPrice")
+                        .First().InnerHtml.Replace("R", "").Replace("<span>", ".").Replace("</span>", "").Trim();
+                        var price = Convert.ToDecimal(priceValue, cultures);
 
-                    resultProducts.Add(new Product
-                    {
-                        Name = HttpUtility.HtmlDecode(name),
-                        Description = name,
-                        Price = price,
-                        Units = 1,
-                        Brand = null,
-                        Source = StoreSiteName.PicknPay.ToString(),
-                        SourceUrl = sourceUrl,
-                        ImageUrl = imageUrl,
-                        Order = index
-                    });
-                    ++index;
+                        resultProducts.Add(new Product
+                        {
+                            Name = HttpUtility.HtmlDecode(name),
+                            Description = name,
+                            Price = price,
+                            Units = 1,
+                            Brand = null,
+                            Source = StoreSiteName.PicknPay.ToString(),
+                            SourceUrl = sourceUrl,
+                            ImageUrl = imageUrl,
+                            Order = index
+                        });
+                        ++index;
+                    }
                 }
             }
             return resultProducts;
