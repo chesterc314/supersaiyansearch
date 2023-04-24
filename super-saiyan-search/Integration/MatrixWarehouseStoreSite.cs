@@ -34,28 +34,32 @@ namespace SuperSaiyanSearch.Integration
                     {
                         var productLinkElementAttributes = productLinkElement.Attributes;
                         var sourceUrl = productLinkElementAttributes.AttributesWithName("href").First().Value;
-                        var name = element.CssSelect(".product-inner > .woocommerce-LoopProduct-link.woocommerce-loop-product__link > .woocommerce-loop-product__title").First().InnerText;
-                        var imageElementAttributes = element.CssSelect(".product-inner > .woocommerce-LoopProduct-link.woocommerce-loop-product__link > .attachment-woocommerce_thumbnail").First().Attributes;
-                        var imageUrl = imageElementAttributes.AttributesWithName("src").First().Value;
-                        var cultures = new CultureInfo("en-US");
-                        var regularPriceBox = element.CssSelect(".product-inner > .woocommerce-LoopProduct-link.woocommerce-loop-product__link > .price > .woocommerce-Price-amount.amount").FirstOrDefault();
-                        var specialPriceBox = element.CssSelect(".product-inner > .woocommerce-LoopProduct-link.woocommerce-loop-product__link > .price > ins > .woocommerce-Price-amount.amount").FirstOrDefault();
-                        var priceValue = (regularPriceBox != null || specialPriceBox != null) ? (regularPriceBox ?? specialPriceBox).InnerText.Replace("&#82;", "").Trim('\n').Trim('R').Trim() : "0,0";
-                        var price = Convert.ToDecimal(priceValue, cultures);
-
-                        resultProducts.Add(new Product
+                        var name = element.CssSelect(".product-inner > .woocommerce-LoopProduct-link.woocommerce-loop-product__link > .woocommerce-loop-product__title").FirstOrDefault().InnerText;
+                        var attrElms = element.CssSelect(".product-inner > .woocommerce-LoopProduct-link.woocommerce-loop-product__link > .attachment-woocommerce_thumbnail").FirstOrDefault();
+                        if (attrElms != null)
                         {
-                            Name = HttpUtility.HtmlDecode(name),
-                            Description = name,
-                            Price = price,
-                            Units = 1,
-                            Brand = null,
-                            Source = StoreSiteName.MatrixWarehouse.ToString(),
-                            SourceUrl = sourceUrl,
-                            ImageUrl = imageUrl,
-                            Order = index
-                        });
-                        ++index;
+                            var imageElementAttributes = attrElms.Attributes;
+                            var imageUrl = imageElementAttributes.AttributesWithName("src").FirstOrDefault().Value;
+                            var cultures = new CultureInfo("en-US");
+                            var regularPriceBox = element.CssSelect(".product-inner > .woocommerce-LoopProduct-link.woocommerce-loop-product__link > .price > .woocommerce-Price-amount.amount").FirstOrDefault();
+                            var specialPriceBox = element.CssSelect(".product-inner > .woocommerce-LoopProduct-link.woocommerce-loop-product__link > .price > ins > .woocommerce-Price-amount.amount").FirstOrDefault();
+                            var priceValue = (regularPriceBox != null || specialPriceBox != null) ? (regularPriceBox ?? specialPriceBox).InnerText.Replace("&#82;", "").Trim('\n').Trim('R').Trim() : "0,0";
+                            var price = Convert.ToDecimal(priceValue, cultures);
+
+                            resultProducts.Add(new Product
+                            {
+                                Name = HttpUtility.HtmlDecode(name),
+                                Description = name,
+                                Price = price,
+                                Units = 1,
+                                Brand = null,
+                                Source = StoreSiteName.MatrixWarehouse.ToString(),
+                                SourceUrl = sourceUrl,
+                                ImageUrl = imageUrl,
+                                Order = index
+                            });
+                            ++index;
+                        }
                     }
                 }
             }
